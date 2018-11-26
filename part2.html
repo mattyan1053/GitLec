@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>part2.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+	width: 800px;
+	margin: auto;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<p>目次</p>
+<!-- TOC -->
+<ul>
+<li><a href="#%E5%AE%9F%E9%9A%9B%E3%81%ABgit%E3%81%AE%E6%93%8D%E4%BD%9C%E3%82%92%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B">実際にGitの操作をしてみる</a></li>
+<li><a href="#git%E3%81%AE%E5%88%9D%E6%9C%9F%E8%A8%AD%E5%AE%9A">Gitの初期設定</a></li>
+<li><a href="#git%E3%82%92%E4%BD%BF%E3%81%84%E3%81%9F%E3%81%84%E5%A0%B4%E6%89%80%E3%82%92%E4%BD%9C%E3%82%8B">Gitを使いたい場所を作る</a></li>
+<li><a href="#git%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B">Gitを使ってみる</a>
+<ul>
+<li><a href="#%E4%BD%9C%E3%81%A3%E3%81%9F%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%81%AB%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B">作ったディレクトリにローカルリポジトリを設定する</a>
+<ul>
+<li><a href="#git%E6%93%8D%E4%BD%9C">Git操作</a></li>
+<li><a href="#%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%A3%E3%81%A6%E4%BD%95%E3%82%88">リポジトリって何よ？</a></li>
+</ul>
+</li>
+<li><a href="#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%99%E3%82%8B">ファイルをコミットする</a>
+<ul>
+<li><a href="#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%A8%E3%81%AF">ファイルのコミットとは</a></li>
+<li><a href="#%E5%AE%9F%E9%9A%9B%E3%81%AEgit%E6%93%8D%E4%BD%9C">実際のGit操作</a></li>
+<li><a href="#%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%81%99%E3%82%8B">ステージする</a>
+<ul>
+<li><a href="#%E8%A4%87%E6%95%B0%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%81%97%E3%81%9F%E3%81%84">複数のファイルをまとめてステージしたい</a></li>
+<li><a href="#%E3%82%82%E3%81%97%E9%96%93%E9%81%95%E3%81%88%E3%81%A6%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AB%E8%BF%BD%E5%8A%A0%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%81%97%E3%81%A6%E3%81%97%E3%81%BE%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AF">もし間違えてリストに追加（ステージ）してしまったときは</a></li>
+</ul>
+</li>
+<li><a href="#%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%99%E3%82%8B">コミットする</a>
+<ul>
+<li><a href="#%E3%81%AA%E3%82%93%E3%81%A7%E6%9C%80%E5%88%9D%E3%81%8B%E3%82%89%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%97%E3%81%AA%E3%81%84%E3%81%A7%E4%B8%80%E5%9B%9E%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%81%97%E3%81%A6%E3%81%8B%E3%82%89%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%99%E3%82%8B%E3%81%AE">なんで最初からコミットしないで一回ステージしてからコミットするの？</a></li>
+<li><a href="#%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E5%B1%A5%E6%AD%B4%E3%82%92%E3%81%BF%E3%82%8B">コミット履歴をみる</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E3%81%BE%E3%81%A8%E3%82%81">まとめ</a></li>
+</ul>
+<!-- /TOC -->
+<h1 id="%E5%AE%9F%E9%9A%9B%E3%81%ABgit%E3%81%AE%E6%93%8D%E4%BD%9C%E3%82%92%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B">実際にGitの操作をしてみる</h1>
+<p>インストールも終わったので実際にGitを操作してみよう、と行きたいところだがその前に少し準備をしなければならない。ついでにせっかくなのでコマンド操作に慣れる練習もしていこう</p>
+<h1 id="git%E3%81%AE%E5%88%9D%E6%9C%9F%E8%A8%AD%E5%AE%9A">Gitの初期設定</h1>
+<p>Gitはバージョン管理ソフトなので誰が更新したかを覚えておく必要がある。そこで、最初にユーザー情報を設定しておく。これは一度設定しておけば今後変える必要はない。登録するのはユーザ名とメールアドレスなのであとから変更は可能。<br>
+Gitの設定をするにあたって、コマンドを入力できるものを起動する必要がある。<br>
+まずはコマンドプロンプト（端末、ターミナル）を起動しよう。Windowsなら「Windowsキー＋R」で「ファイル名を指定して実行」がでるのでそこに「cmd」と打ち込めば出る。<br>
+<img src="image/part2/cmd.png" alt="cmd"><br>
+Macはよくわからない。左上の方からターミナル起動してるのを他人ので見たことがある。
+Linuxはデスクトップで「右クリック」→「端末」とかメニューから「アクセサリ」→「端末」とかで開けたと思う。<br>
+開くことができたら次のように入力しよう。</p>
+<pre class="hljs"><code><div>$ git config --global user.name <span class="hljs-string">"username"</span>
+$ git config --global user.email <span class="hljs-string">"example@example.com"</span>
+</div></code></pre>
+<p>と入力すればよい。「username」「example@example.com」のところは自分のものにあわせて入力しよう。<br>
+ちなみに、色がないとちょっとさみしいので、</p>
+<pre class="hljs"><code><div>$ git --global color.ui auto
+</div></code></pre>
+<p>と入力すると少しだけ色がついて賑やかになる（ほんの気持ちだけ）。</p>
+<h1 id="git%E3%82%92%E4%BD%BF%E3%81%84%E3%81%9F%E3%81%84%E5%A0%B4%E6%89%80%E3%82%92%E4%BD%9C%E3%82%8B">Gitを使いたい場所を作る</h1>
+<p>バージョン管理したい、ソースコードをおいたりするフォルダーを作っておかねばならない。今回練習用のフォルダーとして好きなところに「git-test」というフォルダーを作ることにする。<br>
+通常、マウスとか使って新しくフォルダーを作るときは作りたい場所までダブルクリックとかして移動したあと、「右クリック」→「新規作成」→「フォルダー」とかやるだろう（Windowsならこれ）。これと同じことをコマンドでやる。わざわざ説明されなくてもできるぜ！って方はスキップスキップ。<a href="#Gitを使ってみる">Gitを使ってみる</a></p>
+<p>コマンドプロンプト（ターミナル、端末）を起動することができたら、次のように入力してみてほしい。</p>
+<ul>
+<li>Windowsの場合</li>
+</ul>
+<pre class="hljs"><code><div>&gt; dir
+</div></code></pre>
+<ul>
+<li>Mac, Linux の場合</li>
+</ul>
+<pre class="hljs"><code><div>$ ls
+</div></code></pre>
+<p>これをすることで現在のディレクトリの中身が表示される。ディレクトリとはフォルダーとか言われてたりするあれのこと。  以後ディレクトリというとおもうので覚えてほしい。面倒だったらフォルダーとかわかりやすいように読み替えて構わない。
+次に、自分が今いるディレクトリを移動するコマンドを入力してみる</p>
+<ul>
+<li>Windows,Mac,Linux共通</li>
+</ul>
+<pre class="hljs"><code><div>$ <span class="hljs-built_in">cd</span> &lt;現在の位置からみた移動先のディレクトリ&gt;
+</div></code></pre>
+<p>とすることで移動できる。たとえば、現在ドキュメント（Documents）にいて、その中の「test」の中の、更に「in_test」ディレクトリに移動したいときは</p>
+<pre class="hljs"><code><div>$ <span class="hljs-built_in">cd</span> <span class="hljs-built_in">test</span>\in_test
+</div></code></pre>
+<p>とすることで移動できる。また、今の場所より上の場所に移動したいとき、例えば先程の流れで「in_test」ディレクトリから「test」ディレクトリに戻りたいときは</p>
+<pre class="hljs"><code><div>$ <span class="hljs-built_in">cd</span> ../
+</div></code></pre>
+<p>とすれば移動できる。<br>
+この２つのコマンドを駆使して、自分が使いたいディレクトリの場所に移動しよう。今回の例ではDドライブ直下にディレクトリを作成した（スクショしてもユーザー名が写らないとか楽できる事情があった）<br>
+次に、ここに新しくディレクトリを作成する。次のように入力してみる。</p>
+<ul>
+<li>Windows.Mac.Linux共通</li>
+</ul>
+<pre class="hljs"><code><div>$ mkdir git-test
+</div></code></pre>
+<p>これで新しく「git-test」というディレクトリが作成された。<code>dir</code>や<code>ls</code>といったコマンドを利用してうまく作れていることを確認してほしい。確認できたら、<code>cd</code>コマンドで「git-test」の中に移動しよう。</p>
+<p>-Windows,Mac,Linux共通</p>
+<pre class="hljs"><code><div>$ <span class="hljs-built_in">cd</span> git-test
+</div></code></pre>
+<p>これで新しく練習用のフォルダを作成してそのディレクトリに移動することができた。うまくいっていれば次のような感じになるはずである。<br>
+<img src="image/part2/cmd2.png" alt="cmd2"><br>
+今回利用したコマンドはごくごく一部だし、使ったコマンドですらもっと便利な使い方があったりする。気になる人は「&lt;OS名&gt; コマンド」とかでググればたくさん出てくるので調べてみるとよい。</p>
+<h1 id="git%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B">Gitを使ってみる</h1>
+<p>さて準備も整ったのでGitを使っていこう。</p>
+<h2 id="%E4%BD%9C%E3%81%A3%E3%81%9F%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%81%AB%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B">作ったディレクトリにローカルリポジトリを設定する</h2>
+<h3 id="git%E6%93%8D%E4%BD%9C">Git操作</h3>
+<p>リポジトリとはなんなのかというのは後回しにして、とりあえず次のように入力してみてほしい</p>
+<ul>
+<li>OS共通</li>
+</ul>
+<pre class="hljs"><code><div>$ git init
+</div></code></pre>
+<p>これでディレクトリにリポジトリが作成された。実際に確かめてみよう。</p>
+<ul>
+<li>Windows</li>
+</ul>
+<pre class="hljs"><code><div>&gt; dir /a
+</div></code></pre>
+<ul>
+<li>Mac,Linux</li>
+</ul>
+<pre class="hljs"><code><div>$ ls -a
+</div></code></pre>
+<p><code>/a</code>や<code>-a</code>が後ろについているのは、「隠しファイル」を表示するためだ。作られるディレクトリが隠しファイルなので、単純に<code>dir</code>や<code>ls</code>しただけでは表示してくれない。<br>
+さて、先程のように入力すると、「.git」というディレクトリが作成されているはずだ。<br>
+<img src="image/part2/.git.png" alt=".git"><br>
+この「.git」というのが先程スルーした「リポジトリ」、特に「ローカルリポジトリ」というものになる。<br>
+次に、Gitの状態を確認できるコマンドがある。次のように入力する。</p>
+<pre class="hljs"><code><div>git status
+</div></code></pre>
+<p>これから頻繁に入力することになるコマンドなので絶対に覚えよう。すると、次のように表示されるはずである。</p>
+<pre class="hljs"><code><div>$ git status
+On branch master  
+  
+No commits yet  
+  
+nothing to commit (create/copy files and use <span class="hljs-string">"git add"</span> to track)
+</div></code></pre>
+<p>一文目から「今のブランチはmasterです」、二文目「まだ何もcommitしていません」、三文目「commitするものがありません。（作成またはコピーしてgit addコマンドを使ってtrackに追加してください）」という文章になる。英語にふるえてはいけない。まだこれらの意味はわからなくて構わない。</p>
+<h3 id="%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%A3%E3%81%A6%E4%BD%95%E3%82%88%EF%BC%9F">リポジトリって何よ？</h3>
+<p>リポジトリとは、ファイルやディレクトリの状態を保存する場所である。ファイルを変更したりしても、変更前の状態をリポジトリが覚えてくれるわけだ。操作のできるバックアップに近い感覚。<br>
+<img src="image/part2/repository.bmp" alt="repository"><br>
+新しくプロジェクトを始めたりしてGitを使うときはまずバージョン管理したいディレクトリでリポジトリを作ることになる。<code>git init</code>コマンドは覚えよう。</p>
+<blockquote>
+<p>ローカルリポジトリ？<br>
+今回作成したのはリポジトリ、その中でも特に「ローカルリポジトリ」と呼ばれているものだ。詳しいことはローカルでないリポジトリを扱うときに説明するが、簡単に言うとそのPCだけ、そのディレクトリだけで有効なリポジトリということになる。</p>
+</blockquote>
+<h2 id="%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%99%E3%82%8B">ファイルをコミットする</h2>
+<h3 id="%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%A8%E3%81%AF">ファイルのコミットとは</h3>
+<p>例のごとくコミットという言葉は一旦スルー。Gitはこういう覚える言葉が多くていけない。コミットなんてRIZAPくらいでしか普段聞かない。<br>
+リポジトリでバージョンを管理する過程を説明する。工程は２段階で、まず「バージョン管理したいファイルをリストアップ」したあと、「現在の状態をリポジトリに保存する（覚えさせる）」ということを行う。<br>
+<img src="image/part2/add-commit.bmp" alt="commit"><br>
+上記の図でいうと、今の状態を保存しておきたいもの（バージョン管理したいファイル）として「sample.c」と「sample2.c」を「バージョン管理に追加したいものリスト（変更したものリスト）」に追加して、そのあと「追加したいものリスト」にあるファイルを「リポジトリに覚えさせる」ということになる。  このとき、「test.c」には何もしていないので記憶されない。
+ここでの「作業しているディレクトリ」のことを<strong>ワークツリー</strong>、「変更したものリスト」のことを<strong>インデックス</strong>と呼ぶ。<br>
+さて、Gitはバージョン管理ソフトである。なので、このあとなにか作業をしたあとどうするのかにも触れておく。
+上の図のように「sample.c」と「sample2.c」を記憶したあと、「sample.c」だけ変更を行って新しくなった。そこで、今の変更点をリポジトリに保存したい。<br>
+<img src="image/part2/add-commit2.bmp" alt="commit2"><br>
+そのときは「変更したものリスト」に書き換えた「sample.c」だけを追加して、リポジトリに記憶してもらえば良い。変更してない部分は考えなくていいからだ。更に、リポジトリは一回目の保存も破棄しないので、両方のバージョンを記憶しておくことができるというわけだ。そして、実はここでの「変更したものリストに追加」することを<strong>ステージ</strong>すると言い、「リポジトリにリストに追加されたものの変更点を保存」することを<strong>コミット</strong>するという。 　つまり「ファイルをコミットする」とは「変更したファイルをリポジトリに記憶する」ということを言うわけだ。</p>
+<p>さて、カタカナ語がリポジトリ、ワークツリー、インデックス･･････と立て続けに出てきて混乱してきた。ここで一旦まとめて簡単に確認しておこう。</p>
+<ul>
+<li>リポジトリ : 作業の状態を記憶するところ</li>
+<li>ワークツリー : 作業しているディレクトリ</li>
+<li>インデックス : 変更したものリスト</li>
+<li>ステージ : 変更したものリストに加える</li>
+<li>コミット : 変更したものリストにあるファイルの変更点をリポジトリに記憶する</li>
+</ul>
+<p>これらの用語はこれから頻出し、一度「ん？」となるとどんどんわからなくなっていく。本記事ではできるだけ後者の言葉を使ったあと括弧書き（）をしてその中に用語を書いておこうとおもう。タイトルはあとから振り返りやすいようにあえて用語を使っている。</p>
+<h3 id="%E5%AE%9F%E9%9A%9B%E3%81%AEgit%E6%93%8D%E4%BD%9C">実際のGit操作</h3>
+<p>何はともあれ一つファイルを作ってみなければならない。適当なテキストファイルでもいいのだが、なんだか雰囲気がでないのでそれっぽいファイルを用意してみる。お好みのテキストエディタを使って以下の内容のファイルを作って作業しているディレクトリ（ワークツリー）に保存してほしい。</p>
+<pre class="hljs"><code><div>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Gitコマンド一覧\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git init : リポジトリを作成\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git status : Gitの状態を確認\n"</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+
+</div></code></pre>
+<p>C言語のHello World的ファイル。コンパイルとかは別にしなくていいです。何も中身がないのも寂しいので使ったコマンドを<code>printf();</code>していってみる。そんなのコマンドを羅列したテキストファイルをcatすればいいじゃないかとおもったそこのアナタ。そのとおりです。ほら、雰囲気大事だよ雰囲気。ソースコードをGitで管理したらそれっぽいじゃん？
+ちなみにPATH設定してあるテキストエディタならコマンドから起動できる。例えば</p>
+<ul>
+<li>UNIX系OSなら（Vim）</li>
+</ul>
+<pre class="hljs"><code><div>$ vi sample.c
+</div></code></pre>
+<p>とか</p>
+<ul>
+<li>Windowsなら（メモ帳）</li>
+</ul>
+<pre class="hljs"><code><div>&gt; notepad sample.c
+</div></code></pre>
+<p>とかで。<br>
+ここで</p>
+<pre class="hljs"><code><div>$ git status
+</div></code></pre>
+<p>とすると</p>
+<pre class="hljs"><code><div>$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+ (use <span class="hljs-string">"git add &lt;file&gt;..."</span> to include <span class="hljs-keyword">in</span> what will be commited)
+
+    sample.c
+
+nothing added to commit but untracked files present (use <span class="hljs-string">"git add"</span> to track)
+</div></code></pre>
+<p>と表示されたのではないだろうか。上２つの文は前回の<code>git status</code>と同じだが、その次が異なる。内容は「ステージされていないファイルがあります。git add <filename>...を入力してコミットしたいものをステージしてください。そのファイルは「sample.c」です。コミットすべきファイルはありませんがステージされていないファイルがあります。」頭がいたくなりそうな話だが、要は**「変更したのに「変更したものリスト」に追加（ステージ）されてないものがあるよ、追加してね」**ってことである。つまり、<code>git status</code>コマンドを使えば変更したのに「変更したものリスト」に加え（ステージし）てないものがあるときは教えてくれるということである。</p>
+<h3 id="%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%81%99%E3%82%8B">ステージする</h3>
+<p>さて、では言われたとおり作った「sample.c」を「変更したものリスト」に追加（ステージ）をしてみよう。次のようにコマンドで入力する。</p>
+<pre class="hljs"><code><div>$ git add sample.c
+</div></code></pre>
+<p><code>git add &lt;filename&gt;</code>はファイルを「変更したものリスト」に追加（ステージ）するコマンドだ。<br>
+ちなみに</p>
+<pre class="hljs"><code><div>$ git add sample.c
+warning: CRLF will be replaced by LF <span class="hljs-keyword">in</span> sample.c.
+The file will have its original line endings <span class="hljs-keyword">in</span> your working directory.
+</div></code></pre>
+<p>って出た人は改行コードの違いで勝手に改行コード書き換わって保存されただけなのでよくわからなければ気にしないでOK。元ファイルのほうは何も書き換わっていない。<br>
+そのあと、<code>git status</code>コマンドを使うことで今どうなってくれるか教えてくれる。  やってみると</p>
+<pre class="hljs"><code><div>$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+ (use  <span class="hljs-string">"git rm --cached &lt;file&gt;..."</span> to unstage)
+    newfile : sample.c
+</div></code></pre>
+<p>と表示されると思う。下に「Untracked～」で始まる文字が表示されているときは、エディタの一時ファイルかなんかだと思うので気にしないで問題ない。</p>
+<h4 id="%E8%A4%87%E6%95%B0%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E3%81%97%E3%81%9F%E3%81%84">複数のファイルをまとめてステージしたい</h4>
+<p>通常、一つのファイルだけ書き換えることもあれば、複数のファイルを一気に書き換えることもあるだろう。そういうときは書き換えたものをすべて「変更したものリスト」に追加（ステージ）しなければならない。一つ一つのファイルをいちいち<code>git add</code>していくのは面倒であるが、<code>git add</code>は次のように一気に複数のファイルを指定できる。</p>
+<pre class="hljs"><code><div>$ git add &lt;filename1&gt; &lt;filename2&gt; &lt;filename3&gt;...
+</div></code></pre>
+<p>こうすることで一度に複数のファイルをステージすることができる。更に</p>
+<pre class="hljs"><code><div>$ git add .
+</div></code></pre>
+<p>と最後をドットにすることでそのディレクトリ内のすべてのファイルをステージする（リストに追加する）ことができる。またこのコマンドを使ったりしてもステージしない方法として「.gitignore」ファイルを作り同じディレクトリにいれておく方法がある。テキストエディタで</p>
+<pre class="hljs"><code><div>*~
+test.c
+</div></code></pre>
+<p>などこのファイルにかかれているファイルは無視されるようになる。<br>
+<img src="image/part2/ignore.png" alt=".gitignore"></p>
+<h4 id="%E3%82%82%E3%81%97%E9%96%93%E9%81%95%E3%81%88%E3%81%A6%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AB%E8%BF%BD%E5%8A%A0%EF%BC%88%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%EF%BC%89%E3%81%97%E3%81%A6%E3%81%97%E3%81%BE%E3%81%A3%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AF">もし間違えてリストに追加（ステージ）してしまったときは</h4>
+<p>ここでバージョン管理するつもりのないファイルを間違って追加してしまったときも慌てなくてOK。<br>
+新しく作成したファイルをaddしたときは</p>
+<pre class="hljs"><code><div>$ git rm --cached &lt;filename&gt;...
+</div></code></pre>
+<p>と入力すればリストから取り消すことができる。<br>
+また、もともとあったファイルを変更してaddしたときは</p>
+<pre class="hljs"><code><div>$ git reset HEAD &lt;filename&gt;...
+</div></code></pre>
+<p>とすればリストから取り消すことができる。</p>
+<h3 id="%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%99%E3%82%8B">コミットする</h3>
+<p>これで「変更したものリスト」に追加（ステージ）が完了した。あとはこれをリポジトリに記憶してもらう（コミット）だけである。そのためには次のコマンドを入力する。</p>
+<pre class="hljs"><code><div>$ git commit
+</div></code></pre>
+<p>これを入力すると何かしらのテキストエディタが起動するだろう。そこにはコミットの内容を少なくとも１行記入しておく必要がある。通常</p>
+<blockquote>
+<p>コミットの内容<br>
+<br>
+変更した理由など  （なくても可）</p>
+</blockquote>
+<p>を記入する。日本語が通常のままだと入力できないので頑張って英語で。要約でいいので簡単な英語で問題ない。「Fix A in B」とかそんな感じ。今回は</p>
+<blockquote>
+<p>First commit</p>
+</blockquote>
+<p>で良いかと思う。いちいちテキストエディタで書くのが面倒、というときは</p>
+<pre class="hljs"><code><div>$ git commit -m <span class="hljs-string">"First commit"</span>
+</div></code></pre>
+<p>というように、<code>-m</code>オプションをつけて後ろにコメントを書くことでも代用できる。<br>
+これでリポジトリに記憶が完了した。</p>
+<p>####なんで最初からコミットしないで一回ステージしてからコミットするの？
+ここまで読んだ人で疑問に思った人もいるだろう。「変更したところをコミット（記憶）するに決まっているんだからステージ（リストに追加）はしなくていいんではないか」と。基本的にはそれで問題ないかもしれない。実際にaddとcommitをまとめてしまう方法がある。</p>
+<pre class="hljs"><code><div>$ git commit -a -m <span class="hljs-string">"Commit collectively"</span>
+</div></code></pre>
+<p><code>-a</code>オプションをつけることでコミットまで一気にやってくれる。しかしコミットしたくないものまでコミットしてしまったり、一気に変更を行ったけれどコミットメッセージを分けて別々にコミットしたいときがある。そういうときに、「add」と「commit」を分けて行うようにしておけば融通が効くということである。</p>
+<p>####コミット履歴をみる
+自分の記憶履歴（コミット履歴）を見るには次のコマンドがある。</p>
+<pre class="hljs"><code><div>$ git <span class="hljs-built_in">log</span>
+</div></code></pre>
+<p>こうすることでcommit履歴が見られる。入力してみるとよくわからんIDと「HEAD-&gt;master」、コミット（記憶）した人とそのメールアドレス、コミットの日時、コミットメッセージが表示されるだろう。これからはこのコマンドを使うことで履歴を確認することができる。</p>
+<pre class="hljs"><code><div>$ git <span class="hljs-built_in">log</span> --oneline
+</div></code></pre>
+<p>とすれば一回のコミットにつき１行で履歴が表示される。</p>
+<pre class="hljs"><code><div>$ git <span class="hljs-built_in">log</span> --graph
+</div></code></pre>
+<p>とするとツリー状に履歴が表示される。詳しくは次回。大抵の場合<code>--graph</code>オプションは<code>--oneline</code>オプションと一緒に使うことになると思う。</p>
+<p>#まとめ
+今回はGitでコミットするまでの流れとやり方を説明した。
+まずGitを使うために作業しているディレクトリにリポジトリを作る必要があり、そのリポジトリにデータをコミット（記憶）していく。リポジトリを作るのは作業ディレクトリを作った初回だけで良い。</p>
+<p>結局コミットとは変更点を保存するだけである。<br>
+そのためには</p>
+<ol>
+<li>ファイルを変更する</li>
+<li>ファイルをステージする（変更したものリストに加える）</li>
+<li>ファイルをコミットする（変更点を保存する）</li>
+</ol>
+<p>の３手順（変更する部分を抜けば２手順）を行うことになり、バージョンアップするたびに繰り返すことになる。</p>
+<p>まだここまでではデータのバックアップがとれるようになっただけでGitの便利なところはわからないだろう。次回はリポジトリにコミットを繰り返していったあとのデータの扱いについて説明する。</p>
+
+</body>
+</html>

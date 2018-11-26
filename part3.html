@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>part3.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+	width: 800px;
+	margin: auto;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<p>目次</p>
+<!-- TOC -->
+<ul>
+<li><a href="#%E5%89%8D%E5%9B%9E%E3%81%AE%E7%B6%9A%E3%81%8D">前回の続き</a></li>
+<li><a href="#%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AB%E8%A8%98%E6%86%B6%E3%81%95%E3%82%8C%E3%81%9F%E6%8C%87%E5%AE%9A%E3%81%AE%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%AB%E7%A7%BB%E5%8B%95%E3%81%99%E3%82%8B">リポジトリに記憶された指定のコミットに移動する</a></li>
+<li><a href="#%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%AE%E5%88%86%E5%B2%90">コミットの分岐</a>
+<ul>
+<li><a href="#%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%82%92%E6%89%B1%E3%81%86">ブランチを扱う</a>
+<ul>
+<li><a href="#%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%A3%E3%81%A6%E4%BD%95">ブランチって何</a></li>
+<li><a href="#%E5%AE%9F%E9%9A%9B%E3%81%AB%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8B">実際にブランチをつくる</a></li>
+<li><a href="#%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%82%92%E3%83%9E%E3%83%BC%E3%82%B8%E3%81%99%E3%82%8B">ブランチをマージする</a>
+<ul>
+<li><a href="#%E3%83%9E%E3%83%BC%E3%82%B8%E3%81%AE%E7%AB%B6%E5%90%88">マージの競合</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E3%81%BE%E3%81%A8%E3%82%81">まとめ</a></li>
+</ul>
+<!-- /TOC -->
+<h1 id="%E5%89%8D%E5%9B%9E%E3%81%AE%E7%B6%9A%E3%81%8D">前回の続き</h1>
+<p>前回は変更したファイルを「変更したリスト」に追加（ステージ）して、それを記憶（コミット）するまでの流れをやった。実はこのコミットしたことで「記憶のかたまり」がつくられる。<br>
+今回はこのコミットしたものたちをどう扱っていくか説明していく。<br>
+今後、この「コミットすることでできた記憶のかたまり」を「コミット」と呼んでいく。</p>
+<h1 id="%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AB%E8%A8%98%E6%86%B6%E3%81%95%E3%82%8C%E3%81%9F%E6%8C%87%E5%AE%9A%E3%81%AE%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%AB%E7%A7%BB%E5%8B%95%E3%81%99%E3%82%8B">リポジトリに記憶された指定のコミットに移動する</h1>
+<p>前回、作ったファイルをコミットする（記憶する）ことでバックアップのようなものをとることができた。今回は、それをどのように利用していくか考える。<br>
+まず、準備として追加で２回ほど前回の「sample.c」を編集してステージ（変更リストに追加）してコミット（記憶）する。(例ではVimを使用）<br>
+sample.cを編集して</p>
+<pre class="hljs"><code><div>$ vim sample.c
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Gitコマンド一覧\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git init : リポジトリを作成\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git status : Gitの状態を確認\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git add : ファイルのステージ\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git commit : コミットする\n"</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<p>コミットしたあと、もう一度sample.cを編集する</p>
+<pre class="hljs"><code><div>$ git add sample.c
+$ git commit -m <span class="hljs-string">"Second commit"</span>
+$ vim sample.c
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Gitコマンド一覧\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git init : リポジトリを作成\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git status : Gitの状態を確認\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git add : ファイルのステージ\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git commit : コミットする\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git log : コミット履歴を見る\n"</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<p>コミットする。</p>
+<pre class="hljs"><code><div>$ git add sample.c
+$ git commit -m <span class="hljs-string">"Third commit"</span>
+</div></code></pre>
+<p>こうしてコミット（記憶）を続けていくと、次の図のようになる。四角形一つ一つがコミットであると捉えてほしい。<br>
+<img src="image/part3/commit.bmp" alt="commit"><br>
+コマンドで見るとこんな感じ</p>
+<pre class="hljs"><code><div>$ git <span class="hljs-built_in">log</span> --oneline --graph
+* 0d5bf59 (HEAD -&gt; master) Third commit
+* 393f3a1 Second commit
+* f0c1e0e first commit
+</div></code></pre>
+<p>HEADというものが最新のコミット(ver3)のところに書いてあるが、詳しいことはおいておいて今は現在どの状態かを指し示しているものだと考えよう（正確には正しくないが今はこの考え方で進める）。<br>
+このヘッドの位置をコントロールすることで現在の作業ディレクトリの状態をコントロールすることができる。<br>
+現在の状態でsample.cの中身を見てみると（<code>cat</code>コマンドで中身が見られる）</p>
+<pre class="hljs"><code><div>$ cat sample.c
+<span class="hljs-comment">#include&lt;stdio.h&gt;</span>
+int <span class="hljs-function"><span class="hljs-title">main</span></span>(){
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Gitコマンド一覧\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git init : リポジトリを作成\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git status : Gitの状態を確認\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git add : ファイルのステージ\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git commit : コミットする\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git log : コミット履歴を見る\n"</span>);
+    <span class="hljs-built_in">return</span> 0;
+}
+</div></code></pre>
+<p>当然こうなっているはずである。しかしここで</p>
+<pre class="hljs"><code><div>$ git reset --hard HEAD~
+</div></code></pre>
+<p>とすると（HEADの後ろについているのはチルダ「~」）</p>
+<pre class="hljs"><code><div>$ cat sample.c
+<span class="hljs-comment">#include&lt;stdio.h&gt;</span>
+int <span class="hljs-function"><span class="hljs-title">main</span></span>(){
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Gitコマンド一覧\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git init : リポジトリを作成\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git status : Gitの状態を確認\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git add : ファイルのステージ\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git commit : コミットする\n"</span>);
+    <span class="hljs-built_in">return</span> 0;
+}
+</div></code></pre>
+<p>となり、Third commitする前の、ver2のsample.cになっているはずだ。つまり何が起きているかと言うと</p>
+<p><img src="image/part3/reset.bmp" alt="commit2"><br>
+HEADが一つ前のものに移動しているということになる。一つ前のところに戻せるというわけだ。<br>
+ちなみに、「HEAD」のところをうまいことやれば他の場所に移動もできる。「HEAD」にすればver3の部分を指し示すことになるので、最後にコミットしたときの状態に一致することになる。また「HEAD~」の「~」の数を増やしたり、「~2」としてみると戻る数を指定できる。たとえば</p>
+<pre class="hljs"><code><div>$ git reset --hard HEAD~2
+</div></code></pre>
+<p>とすればHEADはver3からver1のところに移動する。<br>
+この<code>git reset</code>の注意しなければならないところはHEADを交代させるとその先のver3のところは<code>git log</code>では表示できず、現在位置からの相対位置（HEADをいくつずらすか）ではもとに戻ることができない（理由はあとで詳しく説明する）。もし一度resetしたものを取り消してもとのresetする前の状態に戻したいときは</p>
+<pre class="hljs"><code><div>$ git reset --hard ORIG_HEAD
+</div></code></pre>
+<p>とすると一度前のresetの操作を取り消せる。<br>
+他に、直接ある指定のコミットへHEADを移動する方法があり、HEADの移動ログをたどる</p>
+<pre class="hljs"><code><div>$ git reflog
+</div></code></pre>
+<p>などからHEADの移動履歴を見ることができ、コミットのハッシュ値（先頭のほうに表示されるごちゃごちゃの英数字）を直接入力すれば移動できる。ハッシュ値とは、どのコミットを指し示すかわかるようにするための名前のようなものと捉えて良い。（下図参照）
+<img src="image/part3/head_move.bmp" alt="head_move"><br>
+ここまでの操作をしてみると、Gitがバージョン管理ソフトとして機能する過程の片鱗を見ることができたのではないだろうか。<code>git log</code>で見たコミットメッセージ（変更内容）をみて、戻りたい位置に任意で戻ることができるわけだ。<br>
+これでコミットさえしておけばその時点まで巻き戻したりもとに戻したりすることが容易にできるようになった。</p>
+<h1 id="%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%AE%E5%88%86%E5%B2%90">コミットの分岐</h1>
+<p>先程までのコミットは一直線型に変更を続けていった。<br>
+ところが実際に開発を進めていると、バグの修正だったり、他の人と協力してやるためにバージョンが少し分岐したりすることがあるだろう。そういうときの対処法について学ぶ。</p>
+<p>先程と同様に、コミットを３回した状態を考える。(ヘッドはVer3を指している状態）<br>
+<img src="image/part3/branch0.bmp" alt="branch"><br>
+現在それぞれのコミット（記憶したもの）は一直線上に並んでいるが、実はこれを分岐させることができる。そのために必要な考え方が「ブランチ」というものだ。</p>
+<h2 id="%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%82%92%E6%89%B1%E3%81%86">ブランチを扱う</h2>
+<p>いつもどおりブランチがなんなのかということはさておき、「branch」という文字は見たことがあるかもしれない。そう、<code>git status</code>と入力したときに一番上に出てきたアレだ。</p>
+<pre class="hljs"><code><div>$ git status
+On branch master
+nothing to commit, working tree clean
+</div></code></pre>
+<p>一番上の「On branch master」である。<br>
+とりあえず<code>git branch</code>と入力してみてほしい。すると次のようになるだろう。</p>
+<pre class="hljs"><code><div>$ git branch
+* master
+</div></code></pre>
+<p><code>git status</code>でみた「master」という文字が表示されたはずだ。これは現在いる「ブランチ」が「master」であることを示している。</p>
+<h3 id="%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%A3%E3%81%A6%E4%BD%95">ブランチって何</h3>
+<p>それでは後回しにしていたブランチについて説明する。コミット（記憶したもの）を分岐させる、ということは次の図のようになる。<br>
+<img src="image/part3/branch1.bmp" alt="branch1"><br>
+さて、コミットを枝分かれさせたはいいものの、自分が今どの枝にいるのかわからないと困ってしまう。これを解決するのが「ブランチ」である。それぞれの枝に次のように名前をつけてみる。<br>
+<img src="image/part3/branch2.bmp" alt="branch2"><br>
+これで枝を区別できるようになった。この枝の名前を「ブランチ」と呼び、細かく言えば枝全体でなく、枝の先端を指し示すものとなる。ちなみにGitのデフォルトのブランチ名（真ん中の枝といってよい）は「master」である。サーヴァントは召喚しません。</p>
+<h3 id="%E5%AE%9F%E9%9A%9B%E3%81%AB%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8B">実際にブランチをつくる</h3>
+<p>ブランチがなんとなくイメージできたところで実際に操作を行ってみよう。<br>
+ヘッドの移動をやったときの状態<br>
+<img src="image/part3/commit.bmp" alt="commit"><br>
+からスタートしてみる。今回はVer3のところから分岐したいとしよう。まずヘッドをVer２のところに移動する。<code>git log</code>でコミット履歴を確認してみると、Ver3のところがなかったことのようになっているだろう。</p>
+<pre class="hljs"><code><div>$ git reset --hard HEAD~
+</div></code></pre>
+<p><img src="image/part3/reset.bmp" alt="reset"><br>
+ここから分岐させていく。ちなみにこの時、ブランチ（枝）「master」の指し示す位置はVer2であることに注意したい（ヘッドと一緒に移動する）。まずは新しくブランチ（枝）を作る。</p>
+<pre class="hljs"><code><div>$ git branch <span class="hljs-built_in">test</span>-branch
+</div></code></pre>
+<p>これで新しく枝を生やすことができた。図で表すと<br>
+<img src="image/part3/branch3.bmp" alt="branch3"><br>
+コマンドで実際に今ある枝を確認してみると</p>
+<pre class="hljs"><code><div>$ git branch
+* master
+  <span class="hljs-built_in">test</span>-branch
+</div></code></pre>
+<p>と表示されるだろう。ここで、「*」がついているブランチ（枝）は今伸ばそうとしている（今現在いる）ブランチである。分岐させて「test-branch」を伸ばすには伸ばす枝を変更せねばならない。そこで次のようにコマンドを入力する。</p>
+<pre class="hljs"><code><div>$ git checkout <span class="hljs-built_in">test</span>-branch
+</div></code></pre>
+<p>これで現在いるブランチ（枝）を確認すると</p>
+<pre class="hljs"><code><div>$ git branch
+  master
+* <span class="hljs-built_in">test</span>-branch
+</div></code></pre>
+<p>と表示されたことだろう。次に、分岐させる前に作業ディレクトリに何かしら変化がなければ分岐させていく意味がないので新しくファイルを作ってみる。</p>
+<pre class="hljs"><code><div>$ vim branch.c
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">branch_name</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">char</span> branch[] = {<span class="hljs-string">"test-branch"</span>};
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"追加したブランチ : %s\n"</span>, branch);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<p>と追加したブランチも表示するコードを書いた。<br>
+この結果をコミット（記憶していく）。このとき「add」するのは「branch.c」のみで問題ない。なぜなら「sample.c」には変更を加えていないからだ。</p>
+<pre class="hljs"><code><div>$ git add branch.c
+$ git commit -m <span class="hljs-string">"add new file to print branch name"</span>
+</div></code></pre>
+<p>現在の状態を図で表すと
+<img src="image/part3/branch4.bmp" alt="branch4"><br>
+これで枝分かれすることができた。<br>
+次に、分岐することができてももとのブランチ（枝）に戻ることができなければ意味がないので戻ってみる。操作はブランチを「test-branch」に切り替えたときと同様に「master」に切り替えるので</p>
+<pre class="hljs"><code><div>$ git checkout master
+</div></code></pre>
+<p>とすれば「master」ブランチに移動できる。なので実際にワークツリー（作業ディレクトリ）の中身を見てみると</p>
+<ul>
+<li>Windowsの場合</li>
+</ul>
+<pre class="hljs"><code><div>&gt; dir
+（略）
+2018/7/20 23:05                     .gitignore
+2018/7/21 18:13                     sample.c
+（略）
+</div></code></pre>
+<ul>
+<li>Mac, Linuxの場合</li>
+</ul>
+<pre class="hljs"><code><div>$ ls
+sample.c     .gitignore
+</div></code></pre>
+<p>というようにVer２のときのワークツリー（作業ディレクトリ）の内容になっているだろう。更にVer３に移動したいので<code>git reflog</code>でVer３のハッシュ値を確認する。</p>
+<pre class="hljs"><code><div>$ git reflog
+&lt;ハッシュ値&gt; (HEAD-&gt; master) HEAD@{0}: checkout moving from <span class="hljs-built_in">test</span>-branch to master
+ （略）  
+&lt;ハッシュ値&gt;HEAD@[n]: commit Third commit   
+ （略）
+</div></code></pre>
+<p>このときnは何回前のヘッド移動かを表す。<br>
+これでVer３のコミットのハッシュ値が確認できたので移動してみる。</p>
+<pre class="hljs"><code><div>$ git reset --hard &lt;３回目のハッシュ値&gt;
+HEAD is now at &lt;３回目のハッシュ値&gt; Third commit
+</div></code></pre>
+<p>と表示されるだろう。当然ワークツリーの中身はsample.cと.gitignoreのままであり、sample.cの中身は</p>
+<pre class="hljs"><code><div>$ cat sample.c
+<span class="hljs-comment">#include&lt;stdio.h&gt;</span>
+
+int <span class="hljs-function"><span class="hljs-title">main</span></span>(){
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Gitコマンド一覧\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git init : リポジトリを作成\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git status : Gitの状態を確認\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git add : ファイルをステージ\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git commit : コミットする\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git log : コミット履歴を見る\n"</span>);
+    <span class="hljs-built_in">return</span> 0;
+}
+</div></code></pre>
+<p>となっている。図であらわすと<br>
+<img src="image/part3/branch5.bmp" alt="branch5"><br>
+となっている。<br>
+逆にブランチ「test-branch」に戻れば、ワークツリー（作業ディレクトリ）にはbranch.cが現れて</p>
+<pre class="hljs"><code><div>$ git checkout <span class="hljs-built_in">test</span>-branch
+$ cat branch.c
+<span class="hljs-comment">#include&lt;stdio.h&gt;</span>
+
+int <span class="hljs-function"><span class="hljs-title">branch_name</span></span>(){
+    char branch[] = {<span class="hljs-string">"test-branch"</span>};
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"現在のブランチ : %s\n"</span>, branch);
+    <span class="hljs-built_in">return</span> 0;
+}
+</div></code></pre>
+<p>となる。
+つまり、ちょっと分岐して作業したい（バグ修正や機能追加など）ときには<code>git checkout &lt;ブランチ名&gt;</code>で別の枝に移動して作業していけばもとの方(master)には影響が出ないわけだ。</p>
+<h3 id="%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%82%92%E3%83%9E%E3%83%BC%E3%82%B8%E3%81%99%E3%82%8B">ブランチをマージする</h3>
+<p>さてバグ修正など分岐して作業を進めていて、その作業が完了したとする。この完了した分岐データを「master」のほうに統合していかなければ意味がない。この修正内容を大元の「master」でも反映するということだ。このブランチ（枝）を合流させることを「マージ(merge)する」という。<br>
+図で言うと<br>
+<img src="image/part3/merge0.bmp" alt="merge"><br>
+「master」のほうで変更した「sample.c」を保持したまま「test-branch」の「branch.c」を追加したver4を作るという流れである。<br>
+「test-branch」のほうの「sample.c」はもともと「master」のver2の「sample.c」と同じであるので、「変更なし」ということになり、ver3のほうの「sample.c」がそのまま残る（「master」と「test-branch」の両方で「sample.c」に異なる変更を行った場合「競合」が起きてしまうがこれはあとで説明する）。<br>
+さて実際にマージをしてみよう。「master」のほうに「test-branch」を合わせる形なので、まず現在のブランチ（枝）を「master」に変更する（「master」に「test-branch」を統合するのと、「test-branch」に「master」を統合するのでは意味合いが異なる。どちら側に合流させるのか気をつけよう）。</p>
+<pre class="hljs"><code><div>$ git checkout master
+</div></code></pre>
+<p>次に、「master」に「test-branch」を合流（マージ）させる。</p>
+<pre class="hljs"><code><div>$ git merge <span class="hljs-built_in">test</span>-branch
+</div></code></pre>
+<p>これで<code>dir</code>や<code>ls</code>をして実際のファイルを見てみると、「branch.c」が追加されていることがわかるだろう。ログを見てみると</p>
+<pre class="hljs"><code><div>$ git <span class="hljs-built_in">log</span> --oneline
+</div></code></pre>
+<p>「Merge branch 'test-branch'」というコミットが追加されているのがわかる（上の図で言うver4）。更に面白いことができて、「--graph」オプションをつけてみると、</p>
+<pre class="hljs"><code><div>$ git <span class="hljs-built_in">log</span> --oneline --graph
+</div></code></pre>
+<p>としてみると、図を頑張って文字と棒線使って表したようなものを見ることができる。<br>
+<img src="image/part3/merge1.png" alt="merge1"><br>
+一応GitのGUI（グラフィカルな感じのやつ）もあるので</p>
+<pre class="hljs"><code><div>$ gitk
+</div></code></pre>
+<p>と起動してみてみると<br>
+<img src="image/part3/merge2.png" alt="merge2"><br>
+とうまく合流している図を見ることができる。これで分岐させて作業していたものを本流に合流させて反映することができるようになった。</p>
+<h4 id="%E3%83%9E%E3%83%BC%E3%82%B8%E3%81%AE%E7%AB%B6%E5%90%88">マージの競合</h4>
+<p>さて、これで実は基本的なバージョン管理はできるようになったのだが、いくつか問題が発生する。その一つが「マージの競合」だ。実例を見てみよう。現在「test-branch」で作業中だ。</p>
+<pre class="hljs"><code><div>$ git checkout <span class="hljs-built_in">test</span>-branch
+</div></code></pre>
+<p>先程マージしてみる前の状態を見てみる。<br>
+<img src="image/part3/branch5.bmp" alt="branch5"><br>
+このとき「test-branch」にあるsample.cを更に書き換えたとしよう。</p>
+<pre class="hljs"><code><div>vim sample.c
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Gitコマンド一覧\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git init : リポジトリを作成\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git status : Gitの状態を確認\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git add : ファイルをステージ\n"</span>);
+    branch_name();
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<p>これをコミットする。</p>
+<pre class="hljs"><code><div>$ git add sample.c
+$ git commit -m <span class="hljs-string">"add branch_name() in sample.c"</span>
+</div></code></pre>
+<p>このとき、「master」にある「sample.c」と「test-branch」にある「sample.c」では内容が異なる。<br>
+この状態で「master」に「test-branch」をマージしてみる。</p>
+<pre class="hljs"><code><div>$ git checkout master
+$ git merge <span class="hljs-built_in">test</span>-branch
+Auto-merging sample.c
+CONFLICT (content): Merge conflict <span class="hljs-keyword">in</span> sample.c
+Automatic merge failed; fix conflicts and <span class="hljs-keyword">then</span> commit the result.
+</div></code></pre>
+<p>受験でみたような気がする英単語「conflict」。音ゲーでみたような気がする「conflict」。要は競合あったので失敗しましたという意。修正してコミットし直してねって言われるので修正する。</p>
+<pre class="hljs"><code><div>$ vim sample.c
+</div></code></pre>
+<p>お好みのテキストエディタで「sample.c」を開く。すると<br>
+<img src="image/part3/conflict.png" alt="conflict"><br>
+というように差分（変化した部分）を挿入してくれている。後はうまい具合になるように修正。今回はどちらの内容も残したいので単純に</p>
+<blockquote>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD<br>
+=======<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; test-branch</p>
+</blockquote>
+<p>の部分を削除して</p>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Gitコマンド一覧\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git init : リポジトリを作成\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git status : Gitの状態を確認\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git add : ファイルをステージ\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git commit : コミットする\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git log : コミット履歴を見る\n"</span>);
+    branch_name();
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<p>というコードに直す。修正がおわったらいつもコミットするように</p>
+<pre class="hljs"><code><div>$ git add sample.c
+$ git commit -m <span class="hljs-string">"Merged sample.c"</span>
+</div></code></pre>
+<p>とすればOK。つまりどういうことかというと、コミットは作らずに、「master」の「sample.c」を書き換えた状態にしてくれるので、あとは適宜書き換えた後普通にコミット（記憶）すればマージ（合流）完了、という流れである。<br>
+実質、「git merge test-branch」を実行したことによって「ver３のコミットの「sample.c」を書き換えて、新しく「branch.c」がステージ（変更リスト登録）された状態にした」ということがわかる。ためしに「git merge test-branch」で警告が出された後に<code>git status</code>してみると</p>
+<pre class="hljs"><code><div>$ git merge <span class="hljs-built_in">test</span>-branch
+Auto-merging sample.c
+CONFLICT (content): Merge conflict <span class="hljs-keyword">in</span> sample.c
+Automatic merge failed; fix conflicts and <span class="hljs-keyword">then</span> commit the result.
+
+$ git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run <span class="hljs-string">"git commit"</span>)
+  (use <span class="hljs-string">"git merge --abort"</span> to abort the merge)
+
+Changes to be committed:
+
+        new file:   branch.c
+
+Unmerged paths:
+  (use <span class="hljs-string">"git add &lt;file&gt;..."</span> to mark resolution)
+
+        both modified:   sample.c
+</div></code></pre>
+<p>と表示され、「branch.c」がすでにステージ（変更リストに登録）されていて、「sample.c」が書き換わったけどまだステージされていない状態であることが確認できる。</p>
+<h1 id="%E3%81%BE%E3%81%A8%E3%82%81">まとめ</h1>
+<p>今回はブランチについて詳しく説明した。<br>
+流れとしては</p>
+<ol>
+<li>ブランチをつくる</li>
+<li>作業を進める</li>
+<li>マージする</li>
+</ol>
+<p>の３ステップを踏むことになる。<br>
+これでGitでバージョン管理を柔軟にすることができるようになった。<br>
+次回はこれまでやってきたことをもう少し詳しく見ていく。具体的にはHEADやブランチの詳しい話をしつつこれらとコミットやステージとの結びつきを解説していくことになる。</p>
+
+</body>
+</html>

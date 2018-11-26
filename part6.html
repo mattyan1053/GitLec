@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>part6.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+	width: 800px;
+	margin: auto;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<p>目次</p>
+<!-- TOC -->
+<ul>
+<li><a href="#%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AB%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B">ローカルリポジトリにリモートリポジトリを設定する</a></li>
+<li><a href="#%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5%E3%81%99%E3%82%8B">プッシュする</a></li>
+<li><a href="#%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B">クローンする</a></li>
+<li><a href="#%E3%83%97%E3%83%AB%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88">プルリクエスト</a>
+<ul>
+<li><a href="#%E4%BF%AE%E6%AD%A3%E3%81%97%E3%81%A6%E3%82%82%E3%82%89%E3%81%86">修正してもらう</a></li>
+<li><a href="#%E3%83%9E%E3%83%BC%E3%82%B8%E3%81%99%E3%82%8B">マージする</a></li>
+</ul>
+</li>
+<li><a href="#%E3%83%97%E3%83%AB%E3%81%99%E3%82%8B">プルする</a>
+<ul>
+<li><a href="#%E3%83%97%E3%83%AB%E3%81%AE%E6%AD%A3%E4%BD%93">プルの正体</a></li>
+</ul>
+</li>
+<li><a href="#%E3%83%97%E3%83%AB%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%81%AE%E7%AB%B6%E5%90%88">プルリクエストの競合</a></li>
+<li><a href="#%E3%81%BE%E3%81%A8%E3%82%81">まとめ</a></li>
+</ul>
+<!-- /TOC -->
+<p>前回はGitHubでリモートリポジトリを作成した。今回はこれを操作していく。</p>
+<h1 id="%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AB%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B">ローカルリポジトリにリモートリポジトリを設定する</h1>
+<p>GitHubで作ったリポジトリのページを開いてCodeのところを開くと次のように出るだろう。<br>
+<img src="image/part6/remote0.png" alt="remote0"><br>
+SSHのところをクリックしたときに横に表示される「git@github.com:<username>/git-test.git」の部分を表示する。<br>
+できたら、次はコマンドでローカルリポジトリのところに移動（今回は「git-test」）して、次のように入力してほしい。</p>
+<pre class="hljs"><code><div>$ git remote add origin git@github.com:&lt;username&gt;/git-test.git
+</div></code></pre>
+<p>originの後ろは先程表示したものをそのまま入力する。これでGitHubのリモートリポジトリと自分のローカルリポジトリを結びつけることが成功した（間違えて入力してしまった人は<code>git remote remove &lt;リポジトリの名前(うち間違えてなければorigin)&gt;</code>としたあとやり直せばOK）。このコマンドについて解説しておくと、現在いるローカルリポジトリを保存するリモートリポジトリを追加するコマンドである。「add」の後ろはリモートリポジトリの名前（デフォルトは「origin」）、その後ろがリポジトリの場所である。</p>
+<h1 id="%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5%E3%81%99%E3%82%8B">プッシュする</h1>
+<p>次に、今の自分のリポジトリ（ローカルリポジトリ）の「master」ブランチの内容をリモートリポジトリにアップロードしよう。このアップロードすることを「プッシュ」と呼び、</p>
+<pre class="hljs"><code><div>$ git push origin master
+</div></code></pre>
+<p>とすると、リモートリポジトリにローカルリポジトリの「master」に現在のブランチの内容をプッシュ（アップロード）できる。<br>
+実際、ここでGitHubのほうのリポジトリを開いてCodeのところをクリックすると<br>
+<img src="image/part6/remote1.png" alt="remote1"><br>
+ちゃんと同期がとれていることがわかる。今回は更に「test-branch」も同期しておこう。</p>
+<pre class="hljs"><code><div>$ git checkout <span class="hljs-built_in">test</span>-branch
+$ git push origin <span class="hljs-built_in">test</span>-branch
+</div></code></pre>
+<p>今回のpush先は「test-branch」なのでこちらを指定。かならずpush元に<code>git checkout</code>してからプッシュする。これでブランチが２つとも同期できた。コミットログなどもちゃんと同期されていることをGitHub上で確認できる。<br>
+<img src="image/part6/remote2.png" alt="remote2"><br>
+ここで更に「local/test-branch」上で変更を行って、再度プッシュしてみよう。まず「master」が変更されているかもしれないので、「master」の内容を「test-branch」にマージする（今回は自分しか作業していないので変更されているわけもないが･･････）。</p>
+<pre class="hljs"><code><div>$ git merge master
+Fast-forward
+  sample.c | 2 ++
+  1 file changed, 2 insertion(+)
+</div></code></pre>
+<p>となっただろう。Fast-forwardについてはあとで説明するのでまだわからなくても良いが、これが表示されたときは特にmasterが変更されてないときである。<br>
+さて準備が整ったので作業をしていこう。<br>
+まずsample.cを書き換える。</p>
+<pre class="hljs"><code><div>$ vim sample.c
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Gitコマンド一覧\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git init : リポジトリを作成\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git status : Gitの状態を確認\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git add : ファイルをステージ\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git commit : コミットする\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git log : コミット履歴を見る\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git push : プッシュする\n"</span>);
+    branch_name();
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<p>一行追加した。これをコミットする。</p>
+<pre class="hljs"><code><div>$ git add sample.c
+$ git commit -m <span class="hljs-string">"add description of push"</span>
+</div></code></pre>
+<p>これをプッシュ（アップロード）する。</p>
+<pre class="hljs"><code><div>$ git push origin <span class="hljs-built_in">test</span>-branch
+</div></code></pre>
+<p>実際にGitHubでコミット履歴でブランチを「test-branch」に設定すると<br>
+<img src="image/part6/remote3.png" alt="remote3"><br>
+ちゃんとコミット履歴に追加されていることがわかる。<br>
+プッシュは先程からアップロードと説明していたが、実は少し違う。アップロードときくとディレクトリ全体をリポジトリに保存するようだが、プッシュしてるのはあくまで「コミット」なので、リモートリポジトリにもやはりコミットが追加されて、かつリモートリポジトリのブランチの指す位置が変化する。あくまで指定したブランチ上のコミットをローカルリポジトリとリモートリポジトリで同期しているに過ぎないということである。</p>
+<h1 id="%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B">クローンする</h1>
+<p>今の所作業しているのは一人だが、新たに作業員が加わったとしよう。その人は自分のPC上にこのリモートリポジトリの内容をもったローカルリポジトリを作る必要がある。けれども。「git init」して、このリモートリポジトリのコミットをたどるように自分のPC上にローカルリポジトリを作成するのはとてもバカバカしい作業である。そこで、このリモートリポジトリの内容をコピーしてリモートリポジトリに反映するのが「クローン」だ。クローンという言葉は聞き覚えのある人もいるだろう、同じ遺伝子の子を作り出すアレと同じ意味である。<br>
+今回は仮想的にもうひとりの作業員を用意して、自分がそれになりきることにしよう。まずはGitHubのほうでクローンを作るのに必要なローカルリポジトリの場所を確認しなければならない。GitHubでコードのところを見ると、右の方に「Clone or download」というものがある。ここをクリックして表示される場所をコマンドで入力することになる。<br>
+<img src="image/part6/clone0.png" alt="clone"><br>
+新しくローカルリポジトリを作りたい場所に移動し、次のように入力する。</p>
+<pre class="hljs"><code><div>$ git <span class="hljs-built_in">clone</span> &lt;先ほど表示したリポジトリの場所&gt; &lt;クローンをいれるディレクトリ名&gt;
+</div></code></pre>
+<p>今回は</p>
+<pre class="hljs"><code><div>$ git <span class="hljs-built_in">clone</span> git@github.com:mattyan1053/git-test.git git-test-clone
+</div></code></pre>
+<p>とした。ただし、クローンでできたローカルリポジトリに存在するブランチはデフォルトブランチであるmasterのみである。あとは今までと同様に作業できるので、とりあえず自分用のブランチを作成して編集しておこう。</p>
+<pre class="hljs"><code><div>$ git branch <span class="hljs-built_in">clone</span>-branch
+$ git checkout <span class="hljs-built_in">clone</span>-branch
+$ vim sample.c
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Gitコマンド一覧\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git init : リポジトリを作成\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git status : Gitの状態を確認\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git add : ファイルをステージ\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git commit : コミットする\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git log : コミット履歴を見る\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git clone : クローンをつくる\n"</span>);
+    branch_name();
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<p>クローンを作るコマンドを追加した「sample.c」を作成した。こちらからも当然pushすることができ</p>
+<pre class="hljs"><code><div>$ git add sample.c
+$ git commit -m <span class="hljs-string">"add description of clone"</span>
+$ git push origin <span class="hljs-built_in">clone</span>-branch
+</div></code></pre>
+<p>とすれば「sample.c」の変更がプッシュ（アップロード）できる。</p>
+<h1 id="%E3%83%97%E3%83%AB%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88">プルリクエスト</h1>
+<p>一旦ここで現在のリモートリポジトリの状況を図で確認してみよう。<br>
+<img src="image/part6/pull_request.bmp" alt="pull-req"><br>
+ここでtest-branchで作業していた人が「master」にマージしたいとする。通常、ローカルリポジトリで</p>
+<pre class="hljs"><code><div>$ git checkout master
+$ git merge <span class="hljs-built_in">test</span>-branch
+</div></code></pre>
+<p>とすればマージできるのだが、複数人で開発しているときは、勝手に本流である「master」ブランチにマージするのは好ましくない。このリモートリポジトリの管理者に頼んで、チェックしてもらってからマージをする必要がある。そこで登場するのが「プルリクエスト」だ。<br>
+ここでGitHubでCodeを確認してみると右の方に「Compare &amp; pull request」と出ているのが見つかるだろう。<br>
+<img src="image/part6/pull_request1.png" alt="pull-req1"><br>
+今回は「test-branch」のほうをプルリクエストしてみる。<br>
+すると<br>
+<img src="image/part6/pull_request2.png" alt="pull-req2"><br>
+のように表示されるだろう。赤枠で囲った部分はどこからどこへマージするのか、下はリクエストのタイトルとコメントを書く場所である。必要なことが記入できたら「Create pull request」をクリックしよう。<br>
+すると、プルリクエストが作成される。GitHubのリポジトリページのタブの「Pull requests」の部分が「１」と表示され、クリックすればリクエストが表示されるようになる。管理者は、ココからプルリクエストをチェックし、マージするか、修正させるかを決めることができる。</p>
+<h2 id="%E4%BF%AE%E6%AD%A3%E3%81%97%E3%81%A6%E3%82%82%E3%82%89%E3%81%86">修正してもらう</h2>
+<p>内容を確認するには「File changed」の部分をクリックする。<br>
+<img src="image/part6/pull_request3.png" alt="pull-req3"><br>
+するとファイルの中身が表示される。そこでファイルの内容にカーソルをあわせると「＋」ボタンが表示されるので、クリックすると、メッセージが残せる。必要なことを書いたら「Start a review」をクリックすれば良い。すると会話の履歴が残るので、また「test-branch」で作業している人が修正してプッシュ、同じようにコメントしてくれるのを待つ。<br>
+<img src="image/part6/pull_request4.png" alt="pull-req4"></p>
+<p>開発者側はレビューに従って修正して再度同じブランチにプッシュ。これを問題がなくなるまで繰り返す。</p>
+<h2 id="%E3%83%9E%E3%83%BC%E3%82%B8%E3%81%99%E3%82%8B">マージする</h2>
+<p>すべての問題がなくなったら、「Conversation」タブの下の方にある「Merge pull request」をクリックする。問題なければ緑色のボタンが出ているはずである。<br>
+<img src="image/part6/pull_request5.png" alt="pull-req5"><br>
+確認のように「Confirm Merge」とでるのでこれもクリック。これで無事「master」にマージすることができた。上の方のプルリクエストタイトルの左下に「Merged」と表示されているはずだ。<br>
+<img src="image/part6/pull_request6.png" alt="pull-req6"><br>
+さて、これで管理者は開発者の作ったコミットを本流にマージすることができるようになった。しかし当然マージしようとしたら競合してしまうこともありうる。そこで、競合したときの対処について話たいところだが、「プル」という操作を知らなければ対処できないので、先にプルについて説明する。</p>
+<h1 id="%E3%83%97%E3%83%AB%E3%81%99%E3%82%8B">プルする</h1>
+<p>現在のリモートリポジトリの状況はこう。<br>
+<img src="image/part6/pull_request7.bmp" alt="pull"><br>
+masterが書き換わっている。このように、寝ている間とか、自分が作業していなくても他の人が作業を進めてリモートリポジトリに変更が加えられている場合がある。この変更を次作業するときはじめにローカルリポジトリのほうにも反映しておきたい。そこで「プル」というものを行う。プルはプッシュとは逆の操作で、ローカルリポジトリに行われた変更をローカルリポジトリにも反映するということだ。ローカルリポジトリに追加されたコミットをローカルリポジトリに追加する操作とも取ることができる。プルするには次のようにする。<br>
+今回は「remote/master」ブランチをそのままローカルの「local/master」ブランチに反映したいので、まず現在のブランチを「master」に変更する。その後プルを行う。</p>
+<pre class="hljs"><code><div>$ git checkout master
+$ git pull origin master
+</div></code></pre>
+<p>これで「remote/master」の内容が「local/master」にプル（適用）された。このように、プルは、</p>
+<pre class="hljs"><code><div>$ git pull &lt;リモートリポジトリの名前&gt; &lt;リモートのブランチ名&gt;
+</div></code></pre>
+<p>というふうに使う。これで実際にログを確認すると</p>
+<pre class="hljs"><code><div>$ git <span class="hljs-built_in">log</span> --oneline --graph
+</div></code></pre>
+<p><img src="image/part6/pull.png" alt="pull"><br>
+とプルリクエストでマージされた「master」のコミットをローカルリポジトリに反映できていることがわかる。</p>
+<h2 id="%E3%83%97%E3%83%AB%E3%81%AE%E6%AD%A3%E4%BD%93">プルの正体</h2>
+<p>実は、プルというのは「remote/&lt;branchname&gt;」から「local/&lt;branchname&gt;」へのマージである。基本的には同じブランチをマージしていることになるので、競合は起きないが、リモートのブランチからローカルの異なるブランチへ（例えばmasterからclone-branchへ）プルすると競合が起きることがある。</p>
+<h1 id="%E3%83%97%E3%83%AB%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%81%AE%E7%AB%B6%E5%90%88">プルリクエストの競合</h1>
+<p>現在のリモートリポジトリの状態はこんな感じ<br>
+<img src="image/part6/pull_request7.bmp" alt="pull-request7"><br>
+この絵でわかるかもしれないが、ここで「clone-branch」がプルリクエストを作成し、「master」にマージしようとすると競合が発生する（sample.cが同時に書き換わってしまっている）。<br>
+そこで、管理者側でこの競合をどう解決するかという話だ。<br>
+先ほどと同様の手順で「clone-branch」のプルリクエストを作成する。<br>
+途中、どこからどこにマージするか表示される部分の右に「Can't automatically merge.」と表示されるが気にしないで良い。<br>
+さて管理者になりきってみてみる。Pull requestを開くと次のように表示される。<br>
+<img src="image/part6/pull_request8.png" alt="pull-req8"><br>
+当然「Resolve conflicts」をクリックといきたいところだが（こちらでも解決できる）、ブラウザ上で解決するよりローカルリポジトリで作業したほうが怖くないので今回はこちらでやってみる。<br>
+まずは現在リモートリポジトリに存在する「remote/master」を、「local/clone-branch」にプルしてみると、自動的に「remote/master」から「local/clone-branch」へのマージを試みる。当然、前のプルリクエストによってリモートの「master」は書き換わっているので、競合が発生する。</p>
+<pre class="hljs"><code><div>$ git checkout <span class="hljs-built_in">clone</span>-branch
+$ git pull origin master
+remote: Counting objects: 1, <span class="hljs-keyword">done</span>,
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (1/1), <span class="hljs-keyword">done</span>.
+From github.com:mattyan1053/git-test
+ * branch            master     -&gt; FETCH_HEAD
+   5463036..b39b03e  master     -&gt; origin/master
+Auto-merging sample.c
+CONFLICT (content): Merge conflict <span class="hljs-keyword">in</span> sample.c
+Automatic merge failed; fix conflicts and <span class="hljs-keyword">then</span> commit the result.
+</div></code></pre>
+<p>プルのところで正体はマージであるという話をしたが、ここでよくわかるだろう。マージの競合を解決するのと同じ手順で競合を解決する。</p>
+<pre class="hljs"><code><div>$ vim sample.c
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Gitコマンド一覧\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git init : リポジトリを作成\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git status : Gitの状態を確認\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git add : ファイルをステージ\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git commit : コミットする\n"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git log : コミット履歴を見る\n"</span>);
+<span class="hljs-comment">//&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git clone : クローンをつくる\n"</span>);
+<span class="hljs-comment">//=======</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"git push : プッシュする\n"</span>);
+<span class="hljs-comment">//&gt;&gt;&gt;&gt;&gt;&gt;&gt; b39b03e8e0d5e0908abe4475a679aa8d33723bcf</span>
+    branch_name();
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<p>消すべき部分の文頭を「//」としてみた。この部分を削除すれば良い。<br>
+これで競合が解決したので、「add」「commit」していく。</p>
+<pre class="hljs"><code><div>$ git add sample.c
+$ git commit -m <span class="hljs-string">"Merged master to clone-branch"</span>
+</div></code></pre>
+<p>あとは再度プッシュする。</p>
+<pre class="hljs"><code><div>$ git push origin <span class="hljs-built_in">clone</span>-branch
+</div></code></pre>
+<p>これでGitHubに戻ってみてみると<br>
+<img src="image/part6/pull_request9.png" alt="pull-req9"><br>
+競合が解決したので、マージができるようになっている。<br>
+プルリクエストの競合を解決するために行った操作を図に表すと次のようになる。<br>
+<img src="image/part6/pull_request10.bmp" alt="pull-req10"><br>
+これでプルリクエストの競合は解決された。</p>
+<h1 id="%E3%81%BE%E3%81%A8%E3%82%81">まとめ</h1>
+<p>今回はローカルリポジトリとリモートリポジトリのデータを同期する様々な方法について触れたが、結局のとこ概要は次のとおりである。</p>
+<ul>
+<li>プッシュ : ローカルリポジトリの変更をリモートリポジトリにも適用</li>
+<li>プル : リモートリポジトリの変更をローカルリポジトリにも適用</li>
+<li>クローン : リモートリポジトリから新しくローカルリポジトリをつくる</li>
+<li>プルリクエスト : 他人のマージと被ってデータを壊さないためにワンクッション置く手法</li>
+</ul>
+<p>これらのコマンドを用いてチーム開発をより便利にすすめていくことができる。<br>
+次回はラスト。履歴をコントロールしてみたりマージの仕様だったりといくつか後回しにしていたところを考える。</p>
+
+</body>
+</html>

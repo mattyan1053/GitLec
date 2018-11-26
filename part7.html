@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>part7.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+	width: 800px;
+	margin: auto;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<p>目次</p>
+<!-- TOC -->
+<ul>
+<li><a href="#%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%B8%E3%81%AE%E3%82%BF%E3%82%B0%E4%BB%98%E3%81%91">コミットへのタグ付け</a>
+<ul>
+<li><a href="#%E7%8F%BE%E5%9C%A8%E3%81%AE%E6%9C%80%E6%96%B0%E3%81%AE%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%AB%E3%82%BF%E3%82%B0%E3%82%92%E3%81%A4%E3%81%91%E3%82%8B">現在の最新のコミットにタグをつける</a></li>
+<li><a href="#%E6%B3%A8%E9%87%88%E4%BB%98%E3%81%8D%E3%82%BF%E3%82%B0">注釈付きタグ</a></li>
+<li><a href="#%E9%81%8E%E5%8E%BB%E3%81%AE%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%AB%E3%82%BF%E3%82%B0%E4%BB%98%E3%81%91%E3%81%99%E3%82%8B">過去のコミットにタグ付けする</a></li>
+<li><a href="#%E3%82%BF%E3%82%B0%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B">タグを削除する</a></li>
+<li><a href="#%E3%82%BF%E3%82%B0%E3%82%92%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%A7%E3%82%82%E5%85%B1%E6%9C%89%E3%81%99%E3%82%8B">タグをリモートリポジトリでも共有する</a></li>
+</ul>
+</li>
+<li><a href="#%E3%83%9E%E3%83%BC%E3%82%B8%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%81%82%E3%82%8C%E3%81%93%E3%82%8C">マージに関するあれこれ</a>
+<ul>
+<li><a href="#fast-forward">fast-forward</a></li>
+<li><a href="#--squash%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3">[--squash]オプション</a></li>
+</ul>
+</li>
+<li><a href="#%E3%83%97%E3%83%AB%E3%81%AE%E4%BB%95%E6%A7%98">プルの仕様</a></li>
+<li><a href="#%E3%83%AA%E3%83%99%E3%83%BC%E3%82%B9">リベース</a>
+<ul>
+<li><a href="#git-rebase">git rebase</a></li>
+<li><a href="#git-rebase--i">git rebase -i</a></li>
+<li><a href="#%E3%83%AA%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E6%80%96%E3%81%84%E3%81%A8%E3%81%93%E3%82%8D%E3%81%A8%E3%81%8A%E7%B4%84%E6%9D%9F">リベースの怖いところとお約束</a></li>
+<li><a href="#%E4%B8%80%E5%BA%A6%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%97%E3%81%9F%E3%82%82%E3%81%AE%E3%82%92%E3%83%AA%E3%83%99%E3%83%BC%E3%82%B9%E3%81%99%E3%82%8B">一度コミットしたものをリベースする</a></li>
+</ul>
+</li>
+<li><a href="#%E3%81%BE%E3%81%A8%E3%82%81">まとめ</a></li>
+<li><a href="#%E6%9C%80%E5%BE%8C%E3%81%AB">最後に</a></li>
+</ul>
+<!-- /TOC -->
+<p>ここまででリポジトリの様々な操作をできるようになった。ここではその操作の細かなところを見ていく。</p>
+<h1 id="%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%B8%E3%81%AE%E3%82%BF%E3%82%B0%E4%BB%98%E3%81%91">コミットへのタグ付け</h1>
+<p>作業していくとどんどんコミットが増えていく。その中で、重要なコミット（転換点とか）に目印として「タグ」をつけていくことができる。</p>
+<pre class="hljs"><code><div>$ git show &lt;tag&gt;
+</div></code></pre>
+<p>とすれば、タグの示すコミットの詳細を見ることができるし、</p>
+<pre class="hljs"><code><div>$ git reset [option] &lt;tagname&gt;
+</div></code></pre>
+<p>とすれば任意のタグの示すコミットにHEADを移動することができる（ブランチも移動する)。</p>
+<pre class="hljs"><code><div>$ git tag
+</div></code></pre>
+<p>とすれば現在存在するタグを見ることが可能。自分よりも子にあたるコミットのタグなどもすべて表示される。さらに</p>
+<pre class="hljs"><code><div>$ git tag -l v1.1.*
+</div></code></pre>
+<p>などとしてあげれば「v1.1」で始まるタグのみをすべてリストアップできる。</p>
+<h2 id="%E7%8F%BE%E5%9C%A8%E3%81%AE%E6%9C%80%E6%96%B0%E3%81%AE%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%AB%E3%82%BF%E3%82%B0%E3%82%92%E3%81%A4%E3%81%91%E3%82%8B">現在の最新のコミットにタグをつける</h2>
+<p>現在いるブランチの最新のコミットにタグをつける。</p>
+<pre class="hljs"><code><div>$ git tag &lt;tagname&gt;
+</div></code></pre>
+<p>とすれば最新のコミットにタグ付けできる。例えば、<code>git tag v1.0</code>とした場合、<br>
+<img src="image/part7/tag.bmp" alt="tag"><br>
+というように一番新しいところに「v1.0」というタグがつけられる。</p>
+<h2 id="%E6%B3%A8%E9%87%88%E4%BB%98%E3%81%8D%E3%82%BF%E3%82%B0">注釈付きタグ</h2>
+<p>タグに注釈をつけることができる。タグの説明を付与できるということだ。</p>
+<pre class="hljs"><code><div>$ git tag -a &lt;tagname&gt; -m <span class="hljs-string">"message of tag"</span>
+</div></code></pre>
+<p>とすれば良い。こうすると</p>
+<pre class="hljs"><code><div>$ git show tag
+</div></code></pre>
+<p>としたときに、タグの注釈まで表示してくれる。<code>-m</code>オプションを省略した場合はエディタが起動するはずなので、そこで注釈を入力する。</p>
+<h2 id="%E9%81%8E%E5%8E%BB%E3%81%AE%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%AB%E3%82%BF%E3%82%B0%E4%BB%98%E3%81%91%E3%81%99%E3%82%8B">過去のコミットにタグ付けする</h2>
+<p>現在のコミットのみでなく、過去のコミットにタグをつけることも可能だ。</p>
+<pre class="hljs"><code><div>$ git tag &lt;tagname&gt; &lt;commit&gt;
+</div></code></pre>
+<p><code>&lt;commit&gt;</code>のところはコミットのハッシュ値やブランチ、HEAD~などコミットを示すものを入れれば良い。また、<code>-a</code>や<code>-m</code>と合わせて注釈付きタグを過去のコミットにつけることも可能。このときは</p>
+<pre class="hljs"><code><div>$ git tag -a &lt;tagname&gt; -m <span class="hljs-string">"tag message"</span> &lt;commit&gt;
+</div></code></pre>
+<p>とコミット名を最後につければOK。</p>
+<h2 id="%E3%82%BF%E3%82%B0%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B">タグを削除する</h2>
+<p>作ったタグを削除したいときは</p>
+<pre class="hljs"><code><div>$ git tag -d &lt;tagname&gt;
+</div></code></pre>
+<p>でOK。</p>
+<h2 id="%E3%82%BF%E3%82%B0%E3%82%92%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%A7%E3%82%82%E5%85%B1%E6%9C%89%E3%81%99%E3%82%8B">タグをリモートリポジトリでも共有する</h2>
+<p>タグは通常ローカルのみのものであり、プッシュしてもリモートリポジトリには反映されない。リモートリポジトリにもタグを共有したいときは</p>
+<pre class="hljs"><code><div>$ git push origin &lt;tagname&gt;
+</div></code></pre>
+<p>とタグをリモートリポジトリ（ここでは「origin」）にプッシュしてあげる必要がある。</p>
+<h1 id="%E3%83%9E%E3%83%BC%E3%82%B8%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%81%82%E3%82%8C%E3%81%93%E3%82%8C">マージに関するあれこれ</h1>
+<p>Gitの機能の中でも特徴的な機能がマージだ。通常バージョンを分岐させてしまうと合流させるのは容易ではないがGitはそれを簡単にしてくれる。<br>
+マージは実は結構奥深いので、ここで少し掘り下げておく。</p>
+<h2 id="fast-forward">fast-forward</h2>
+<p>プルを行ったときや、分岐したブランチから元のブランチにマージしようとしたとき、「fast-forward」と出たことがあるのを見覚えあるだろうか。まずはこの「fast-forward」がどのような状態なのか説明する。次の状態を考えてほしい。<br>
+<img src="image/part7/fast-forward0.bmp" alt="fast-forward0"><br>
+この状態でmasterにbranch-1をマージをしたとき、つまり</p>
+<pre class="hljs"><code><div>$ git checkout master
+$ git merge branch-1
+</div></code></pre>
+<p>としたとき、何が起こるかと言うとmasterとbranch-1をマージした結果できあがるのはbranch-1と同じ状態なので、新しいコミットは作成されず、masterがbranch-1と同じ場所に移動する。つまり枝分かれしない。<br>
+<img src="image/part7/fast-forward1.bmp" alt="fast-forward1"><br>
+このような状態になる。<br>
+どういうことか整理すると**「branch-1のコミットの履歴」に「masterのコミットの履歴」が完全に含まれている時、branch-1をmasterにマージするとmasterはbranch-1の指し示すコミットまでfast-forwardする**ということだ。<br>
+ちなみにfast-forwardできないとき、つまり<br>
+<img src="image/part7/no-ff.bmp" alt="no-ff"><br>
+のように、branch-1のコミットの履歴にmasterのコミットの履歴が含まれない時（masterの指しているものが含まれていないため）は、新しくコミットが作成される。<br>
+<img src="image/part7/no-ff1.bmp" alt="no-ff1"><br>
+逆に、fast-forwardできるときでも、</p>
+<pre class="hljs"><code><div>$ git merge --no-ff branch-1
+</div></code></pre>
+<p>とすると、fast-forwardせずに新しくコミットをつくってくれるので、分岐があったことが履歴でわかりやすくなる。<br>
+<img src="image/part7/no-ff2.bmp" alt="no-ff2"></p>
+<h2 id="squash%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3">[--squash]オプション</h2>
+<p>マージには<code>[--squash]</code>オプションというものがある。これは、ワークツリーとインデックスを別ブランチの根本からたどっていき書き換えるが、コミットまではしない状態にもっていく操作である。<br>
+<img src="image/part7/squash.bmp" alt="squash"><br>
+この状態ではまだコミットは作られていないので変更飲みされている状態である。</p>
+<pre class="hljs"><code><div>$ git merge --squash branch-1
+</div></code></pre>
+<p>とするとワークツリーとインデックスが書き換えられ</p>
+<pre class="hljs"><code><div>$ git status
+On branch master
+
+Changes to be committed:
+    modified : sample.c
+</div></code></pre>
+<p>のような状態になる。したがって、</p>
+<pre class="hljs"><code><div>$ git merge --squash branch-1
+$ git commit -m <span class="hljs-string">"squash merged"</span>
+</div></code></pre>
+<p>とすれば<br>
+<img src="image/part7/squash1.bmp" alt="squash1"><br>
+のような状態にすることができる（履歴がスッキリ）。</p>
+<h1 id="%E3%83%97%E3%83%AB%E3%81%AE%E4%BB%95%E6%A7%98">プルの仕様</h1>
+<p>プルでリモートリポジトリからローカルリポジトリに変更点を写すことができるが、実はこれは二段階の工程を踏んでいる。どういうことかというと</p>
+<pre class="hljs"><code><div>$ git pull origin master
+</div></code></pre>
+<p>と</p>
+<pre class="hljs"><code><div>$ git fetch origin master
+$ git merge origin/master
+</div></code></pre>
+<p>は同義である。<br>
+<code>git fetch</code> ではローカルリポジトリにまだないコミットデータをダウンロードしてくる。今回masterをリモートリポジトリからとってきたので「origin/master」というところに記憶される。<br>
+<img src="image/part7/fetch.bmp" alt="fetch"><br>
+次に<code>git merge</code>すると、origin/masterをmasterにマージする（この場合fast-forwardになる）。<br>
+<img src="image/part7/fetch1.bmp" alt="fetch1"><br>
+これで実質pullと同じ動きをすることになった。<br>
+前回、プルリクエストの競合を直すときにpullで競合を起こした。これはorigin/masterブランチをfetchしたあとmergeする先のブランチをmasterではなくclone-branchにしていたため競合が発生したということである。<br>
+<img src="image/part7/fetch2.bmp" alt="fetch2"></p>
+<h1 id="%E3%83%AA%E3%83%99%E3%83%BC%E3%82%B9">リベース</h1>
+<p>これまでやってきたGit操作の履歴を見てみると、分岐が多くて見るのが少し大変である。<br>
+<img src="image/part7/rebase0.png" alt="rebase"><br>
+これを少しきれいにするのに便利な操作がリベースである。リベースをすると、複数に分岐していたコミット履歴を直線的な履歴に書き換えることができる（これが良いか悪いかという話はおいておいて）。</p>
+<h2 id="git-rebase">git rebase</h2>
+<p>リベースの流れを図を用いて確認する。<br>
+<img src="image/part7/rebase1.bmp" alt="rebase1"><br>
+上記の状態を普通にマージすると<br>
+親コミットを２つ持つ新しいコミットが生成される。これを履歴で見ると分岐して合流するというあまり見やすくはない履歴になるだろう。<br>
+<img src="image/part7/rebase2.bmp" alt="rebase2"><br>
+ところが</p>
+<pre class="hljs"><code><div>$ git checkout branch-1
+$ git rebase master
+</div></code></pre>
+<p>とすると<br>
+<img src="image/part7/rebase3.bmp" alt="rebase3"><br>
+というふうに、branch-1で行った変更を追いかけるように順番に、masterの位置から変更していってくれる(branch-1も移動する）。競合するたびにとまるので、止まったときは競合を解決したあと、</p>
+<pre class="hljs"><code><div>$ git add &lt;filename&gt;
+$ git rebase --<span class="hljs-built_in">continue</span>
+</div></code></pre>
+<p>とすればrebaseの続きから再開してくれる。
+こうしてbranch-1の先端の変更と同じ変更まで追いつくと、masterブランチの先のほうにもbranch-1の変更と同じ変更が適用されたコミットが完成する。当然branch-1のコミット履歴を見れば一直線の見やすい履歴になっていることだろう。あとは「master」に「branch-1」をmergeしてあげれば良い（fast-forwardになる）。<br>
+mergeとrebaseでそれぞれ分岐したブランチを統合したときの図は次のようになる。<br>
+<img src="image/part7/rebase4.png" alt="rebase4"><br>
+分岐していた部分がmasterの上にそのままくっついた形になったいるのがおわかりいただけるだろうか。</p>
+<h2 id="git-rebase--i">git rebase -i</h2>
+<p>このコマンドを使うと、複数のコミットを一つにまとめることができる。<br>
+たとえば<br>
+<img src="image/part7/rebase-i.bmp" alt="rebase-i"><br>
+branch-1において２回コミットし、それぞれ別の言葉を追加していたとする。しかしこの２つのコミットは似たような作業をしただけなので、一つにまとめてしまいたい。こういうときに</p>
+<pre class="hljs"><code><div>$ git rebase -i HEAD~~
+</div></code></pre>
+<p>とすると、</p>
+<pre class="hljs"><code><div>$ git rebase -i HEAD~~
+</div></code></pre>
+<pre class="hljs"><code><div>pick eaa773d &lt;commit message1&gt;
+pick fba24fd &lt;commit message2&gt;
+（略）
+</div></code></pre>
+<p>とテキストエディタが起動して表示されたはずだ。ここで、二つ目の「pick」を「squash」または「s」に書き換えてエディタを終了してみる。</p>
+<pre class="hljs"><code><div>pick eaa773d &lt;commit message1&gt;
+s fba24fd &lt;commit message2&gt;
+</div></code></pre>
+<p>すると、再度エディタが起動し、今度はコミットメッセージの編集ができる。</p>
+<pre class="hljs"><code><div># This is a combination of 2 commits.
+# The first commit's message is;
+
+add hello
+
+#This is the 2nd commit message:
+
+add good evening
+
+（略）
+</div></code></pre>
+<p>これを書き換えて</p>
+<pre class="hljs"><code><div>add hello and good evening
+</div></code></pre>
+<p>とすれば、前２つのコミットをまとめることができる。<br>
+まとめるコミットは２つでなくてもいいので、例えば</p>
+<pre class="hljs"><code><div>$ git rebase -i &lt;branchname&gt; HEAD~4
+</div></code></pre>
+<p>とすれば４つのコミットをまとめることもできたりする。当然ログも短くなっている。<br>
+<img src="image/part7/rebase-i1.png" alt="rebase-i1"><br>
+このように、ログが短くなりコミットメッセージは更新されている。<br>
+また、<code>git rebase -i</code>はコミットをまとめるだけでなく編集も可能である。</p>
+<pre class="hljs"><code><div>$ git rebase -i HEAD~~
+</div></code></pre>
+<p>としたあとに表示されるエディタで、「pick」のところを先ほどは「squash」に書き換えたが今度は「edit」に書き換えてみると</p>
+<pre class="hljs"><code><div>Stopped at fba24fd...  add good evening
+You can amend the commit now, with
+
+  git commit --amend
+
+Once you are satisfied with your changes, run
+
+  git rebase --<span class="hljs-built_in">continue</span>
+</div></code></pre>
+<p>と表示されるはずだ。これであとは好きなように編集して、満足したら<code>git commit --amend</code>する（<code>git commit</code>はしなくて良い、すでにあるコミットを書き換えるため）。まだrebaseは終わっていないので「git rebase --continue」で続きを促すと</p>
+<pre class="hljs"><code><div>$ git add sample.c
+$ git commit --amend
+<span class="hljs-variable">$git</span> rebase --<span class="hljs-built_in">continue</span>
+</div></code></pre>
+<p>これで指定の内容のコミットを修正することができた。ログで変更されていることを確認できる。ちなみに、rebaseを途中でやっぱりやめたくなった場合は</p>
+<pre class="hljs"><code><div>$ git rebase --abort
+</div></code></pre>
+<p>とすればそれまでの作業を取り消して中断できる。<br>
+<img src="image/part7/rebase-edit.png" alt="rebase-edit"><br>
+上図の場合はコミットメッセージが修正できていることが確認できる。</p>
+<h2 id="%E3%83%AA%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E6%80%96%E3%81%84%E3%81%A8%E3%81%93%E3%82%8D%E3%81%A8%E3%81%8A%E7%B4%84%E6%9D%9F">リベースの怖いところとお約束</h2>
+<p>リベースは履歴をきれいにしたり、間違ってコミットしたものを修正したり余計にコミットしたものをまとめたりできる便利な道具である。しかし同時に、行っていることはコミット履歴の改ざんにほかならない。バグの生まれた箇所を見つけにくくなるし、誰がどこでどう分岐して変更したのかが正確にはわからなくなる（コミットメッセージなどでだいたいはわかるが･･････）。使い所をよく考える必要があるだろう。</p>
+<h2 id="%E4%B8%80%E5%BA%A6%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%97%E3%81%9F%E3%82%82%E3%81%AE%E3%82%92%E3%83%AA%E3%83%99%E3%83%BC%E3%82%B9%E3%81%99%E3%82%8B">一度コミットしたものをリベースする</h2>
+<p>一度コミットしたものをリベースすると、すでにリモートリポジトリに保存されているコミットの履歴と内容があわなくなってしまう。したがって一度コミットしたものをリベースして書き換えた後再度pushすると、コミット履歴が途中まですら一致しなくなり失敗してしまう。ここで、強制的にpush（ローカルリポジトリのコミット履歴をリモートリポジトリに反映する）には</p>
+<pre class="hljs"><code><div>$ git push -f &lt;リモートリポジトリ&gt; &lt;ブランチ名&gt;
+</div></code></pre>
+<p>とすること可能だ。<br>
+とはいえ、一度コミットしたものを書き換えるのはあまり推奨されない。なぜなら、コミットを編集することでコミット名（ハッシュ値）が変わり、リモートリポジトリとローカルリポジトリのコミット履歴の間で大きな不一致が発生してしまうからだ。一度コミットしたものはrebaseせず、自分の作業ブランチを管理者が見やすくするために予めrebaseでコミットをまとめたり分岐をなくしたりしてからコミットする程度にrebaseの利用は留めるのがベターかもしれない（あるいはrebaseの利用基準をチームで明確に決めておく）。</p>
+<h1 id="%E3%81%BE%E3%81%A8%E3%82%81">まとめ</h1>
+<p>今回はマージやリベースなど、コミット操作について少し詳しく説明した。<br>
+これらの作業は更新履歴をいじる危険な作業であるから慎重に行うべきである。仕様をしっかり理解しておかしなバグを産まないようにしたい。</p>
+<h1 id="%E6%9C%80%E5%BE%8C%E3%81%AB">最後に</h1>
+<p>長かったGit入門もここまで。何分自分もGit初心者なのでいろいろ整理しながら書くことができてよかった。アウトプットの大切さがよくわかる。ここまでわかればGitで結構な操作ができるんじゃないだろうか。一応自分なりにジャンル分けしたコマンド一覧を作ったのでそちらのURLも貼っておく。</p>
+<p><a href="https://qiita.com/mattyan1053/items/a3f9f7dce794d200c07d">Qiita: 【Git】コマンドチートシート (https://qiita.com/mattyan1053/items/a3f9f7dce794d200c07d)</a></p>
+<p>それでは皆さん良い開発ライフを。</p>
+
+</body>
+</html>

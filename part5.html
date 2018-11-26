@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>part5.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+	width: 800px;
+	margin: auto;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<p>目次</p>
+<!-- TOC -->
+<ul>
+<li><a href="#%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%A8%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA">ローカルリポジトリとリモートリポジトリ</a>
+<ul>
+<li><a href="#%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA">ローカルリポジトリ</a></li>
+<li><a href="#%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA">リモートリポジトリ</a></li>
+<li><a href="#%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%A8%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E9%96%A2%E4%BF%82">ローカルリポジトリとリモートリポジトリの関係</a></li>
+<li><a href="#%E5%AE%9F%E9%9A%9B%E3%81%AE%E9%96%8B%E7%99%BA%E3%81%AE%E6%B5%81%E3%82%8C">実際の開発の流れ</a></li>
+</ul>
+</li>
+<li><a href="#%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8Bgithub">リモートリポジトリを作成する（GitHub）</a>
+<ul>
+<li><a href="#%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B">アカウントを作成する</a></li>
+<li><a href="#%E5%85%AC%E9%96%8B%E9%8D%B5%E3%81%AE%E8%A8%AD%E5%AE%9A">公開鍵の設定</a></li>
+<li><a href="#%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B">リモートリポジトリを作成する</a></li>
+</ul>
+</li>
+<li><a href="#%E3%81%BE%E3%81%A8%E3%82%81">まとめ</a></li>
+</ul>
+<!-- /TOC -->
+<p>前回までの内容では、自分のPC内で作業を行ってバージョン管理をしてきた。ここからはチームで管理をするためのリモートリポジトリについて考える。</p>
+<h1 id="%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%A8%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA">ローカルリポジトリとリモートリポジトリ</h1>
+<p>リモートリポジトリを説明するにあたり、まずは今までいじってきたリポジトリについて少し説明する。</p>
+<h2 id="%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA">ローカルリポジトリ</h2>
+<p>今までGit管理してきたリポジトリは「ローカルリポジトリ」と呼ばれるものである。<br>
+ある個人が自分のPC上につくるリポジトリで、使用するのは操作している自分だけである（複数人で使用しているPCの場合はその限りではないが･･････）。</p>
+<h2 id="%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA">リモートリポジトリ</h2>
+<p>これから扱っていこうとしているリポジトリが「リモートリポジトリ」と呼ばれるものである。<br>
+これはオンライン上に保存されているリポジトリで、複数人がそこにアクセスすることにより共有することができるものである。開発者は自分のローカルリポジトリでつくったコミットをここに加えていく（アップロードしていく）ことになる。<br>
+これもリポジトリであるので、当然コミットやブランチなどを持っている。<br>
+通常、みんなが好き勝手にリモートリポジトリの内容を変更していくと訳がわからないことになってしまうので、管理者を誰かしら一人または複数人決めておくことになるだろう。</p>
+<h2 id="%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%A8%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E9%96%A2%E4%BF%82">ローカルリポジトリとリモートリポジトリの関係</h2>
+<p>図で表してみよう。たとえば、ローカルリポジトリとリモートリポジトリの「master」ブランチだけが同じ状態だと次のようになる。<br>
+<img src="image/part5/local-remote.bmp" alt="local-remote"><br>
+ブランチがリモートリポジトリのものなのかローカルリポジトリのものなのか明確にするため、ブランチ名の手前に「remote/」や「local/」をつけてみた。ここで、「remote/master」の内容と「local/master」の内容は等しくなっている。<br>
+このように、共有していくブランチを決めておいて、みんなでそこを書き換えるように変更点をアップロードしていけば、チームで開発を進めることができるということだ。</p>
+<h2 id="%E5%AE%9F%E9%9A%9B%E3%81%AE%E9%96%8B%E7%99%BA%E3%81%AE%E6%B5%81%E3%82%8C">実際の開発の流れ</h2>
+<p>メインとなるブランチ（ここでは「master」）を変更するというのは重要な行為である。したがって、次のようにリモートブランチを利用してみる。<br>
+あるプロジェクトが始動したとしよう。初期状態は次のようになっている。<br>
+<img src="image/part5/local-remote-blank.bmp" alt="local-remote-blank"></p>
+<p>ここで、Aさんがリモートリポジトリから「master」の内容をコピーし、「local/test-branch-A」で作業を始めたとしよう。このブランチを「Aさんのブランチ」として設定する。さらにAさんはここから分岐して「local/dev-A」ブランチをつくり、そこで作業を行った。最後にAさんは「local/dev-A」を「local/test-branch-A」にマージして、Aさんのブランチである「local/test-branch-A」を「remote/test-branch-A」にアップロードした。このとき、「local/dev-A」ブランチはアップロードされていないのでリモートリポジトリには存在していないことに注意したい。<br>
+<img src="image/part5/local-remote1.bmp" alt="local-remote1"><br>
+ここで、Aさんはリモートリポジトリの管理者に作業が終わったのでmasterにマージしてほしい旨を伝える。そこで、管理者は「remote/test-branch-A」を確認し、問題がなければマージする。<br>
+<img src="image/part5/local-remote2.bmp" alt="local-remote2"><br>
+更にAさんが開発を続ける場合はAさんが「remote/master」ブランチをダウンロードして、「local/test-branch-A」にマージ。そしてまたAさんのブランチである「local/test-branch-A」で作業を続けることができる。<br>
+<img src="image/part5/local-remote3.bmp" alt="local-remote3"><br>
+また、Bさんも開発に参加しているときは、Aさんのブランチ「remote/test-branch-A」と同様に「Bさんのブランチ」となる「remote/branch-B」を作成して、そちらで作業を進めていけば良い。「master」にマージしてほしいときは管理者に報告する。<br>
+<img src="image/part5/local-remote4.bmp" alt="local-remote4"><br>
+こうすることで他人のブランチ、作業にふれることなく別々の人物で並行して作業ができる。本流（ここでは「master」）に合流させるときだけ管理者がチェックするようにすればよい。</p>
+<h1 id="%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B%EF%BC%88github%EF%BC%89">リモートリポジトリを作成する（GitHub）</h1>
+<p>リモートリポジトリがなんなのかわかったところで実際にリモートリポジトリを作成しよう。オンライン上においておくものなのでサーバーが必要だ。今回は無料で利用することのできるリモートリポジトリサービス、GitHubを使ってみよう。英語になってしまうがなんとか耐えて。</p>
+<h2 id="%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B">アカウントを作成する</h2>
+<p>まずは<a href="https://github.com">GitHub(github.com)</a>にアクセスする。<br>
+次に右上のSign Upをクリックする。<br>
+<img src="image/part5/github0.png" alt="gihub0"><br>
+次に、ユーザー名、Eメールアドレス、パスワードを入力して「Create an account」をクリック。<br>
+<img src="image/part5/github1.png" alt="gihub1"><br>
+プランの選択だが今回はフリープランを使用するので上をチェック。下の２つのチェックボックスは任意。メール欲しい人は一番下にチェックを入れよう。「Continue」をクリック。<br>
+<img src="image/part5/github2.png" alt="gihub2"><br>
+最後にアンケートのようなものがある。面倒な人は下の方の「skip this step」。アンケートに答えてあげる優しい人はぜひ。上からプログラミング経験、GitHubの使用目的、あなたの立場、あなたの興味（自由記述）である。答え追えたら「Submit」。<br>
+<img src="image/part5/github3.png" alt="gihub3"><br>
+あとは記入したメールアドレスに登録確認メールがきてるはずなので、「Verify email address」をクリック。<br>
+これでアカウント作成は完了だ。</p>
+<h2 id="%E5%85%AC%E9%96%8B%E9%8D%B5%E3%81%AE%E8%A8%AD%E5%AE%9A">公開鍵の設定</h2>
+<p>さて、アカウントが作成できたところでいくつか設定をしよう。<br>
+<img src="image/part5/github4.png" alt="gihub4"><br>
+画像とかBio、URLなどはお好みで。今回設定したいのはココ。<br>
+<img src="image/part5/github5.png" alt="gihub5"><br>
+ここで一旦コマンドに戻ろう。<br>
+次のように入力してみる。</p>
+<pre class="hljs"><code><div>$ ssh-keygen -t rsa
+</div></code></pre>
+<p>すると次のようになるだろう。</p>
+<pre class="hljs"><code><div>$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file <span class="hljs-keyword">in</span> <span class="hljs-built_in">which</span> to save the key (/Users/(username)/.ssh/id_rsa):
+</div></code></pre>
+<p>ここは何も記入しなくてOKなのでEnter（むしろ入力すると少し面倒な設定が増える）。すると、</p>
+<pre class="hljs"><code><div>$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file <span class="hljs-keyword">in</span> <span class="hljs-built_in">which</span> to save the key (/Users/(username)/.ssh/id_rsa):
+Enter passphrase (empty <span class="hljs-keyword">for</span> no passphrase):
+</div></code></pre>
+<p>と出るはずなので好きなパスワードを入れる。パスワードを指定しない場合は何もしないでEnter。初回はなしで大丈夫だろう。すると</p>
+<pre class="hljs"><code><div>$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file <span class="hljs-keyword">in</span> <span class="hljs-built_in">which</span> to save the key (/Users/(username)/.ssh/id_rsa):
+Enter passphrase (empty <span class="hljs-keyword">for</span> no passphrase):
+Enter same passphrase agein:
+</div></code></pre>
+<p>と言われるのでもう一度同じパスワードを入力（あるいは未入力）してEnter。
+すると、上の「Enter file in which to save the key」の後ろに表示されたところにRSA暗号鍵が作成される。よくわからない人はGitHubと通信するのに必要なものだと思おう。「cd」で表示されたところに移動してディレクトリの中身を表示してみると、</p>
+<ul>
+<li>Windowsの場合</li>
+</ul>
+<pre class="hljs"><code><div>&gt; cd &lt;表示された場所&gt;
+&gt; dir
+</div></code></pre>
+<ul>
+<li>Mac、Linuxの場合</li>
+</ul>
+<pre class="hljs"><code><div>$ <span class="hljs-built_in">cd</span> &lt;表示された場所&gt;
+$ ls
+</div></code></pre>
+<p>で「id_rsa」と「id_rsa.pub」の２つの鍵が生成できていることがわかる（デフォ設定ならユーザーのとこの「.ssh/」のはず？）。<br>
+このうちGitHubには公開鍵のほうを登録したいので</p>
+<ul>
+<li>Windowsの場合</li>
+</ul>
+<pre class="hljs"><code><div>&gt; clip &lt; id_rsa.pub
+</div></code></pre>
+<ul>
+<li>Mac、Lunuxの場合</li>
+</ul>
+<pre class="hljs"><code><div>$ pbcopy &lt; ./id_rsa.pub
+</div></code></pre>
+<p>として鍵の内容をクリップボードにコピーしておき、GitHubの「New SSH key」のところから<br>
+<img src="image/part5/github6.png" alt="gihub6"><br>
+鍵の名前と内容を貼り付けして「Add SSH key」をクリックする。<br>
+<img src="image/part5/github7.png" alt="gihub7"><br>
+これで通信の準備は完了。<code>ssh -T git@github.com</code>と入力して</p>
+<pre class="hljs"><code><div>$ ssh -T git@github.com
+Hi &lt;username&gt;! You<span class="hljs-string">'ve successfully authenticated, but GitHub does not provide shell access.
+</span></div></code></pre>
+<p>と表示されていればOK。</p>
+<h2 id="%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B">リモートリポジトリを作成する</h2>
+<p>ここまでできたら、右上の「＋」をクリックしてメニューを開く。そして「New repository」を選択。<br>
+<img src="image/part5/github8.png" alt="gihub8"><br>
+リポジトリーの名前を入力する。今回は「git-test」。下のチェックボックスは「Public」。フリープランではこれしか選択できない。最後に「Create repository」を選択すれば終わりだ。READMEはチェックしなくてOK。<br>
+<img src="image/part5/github9.png" alt="gihub9"><br>
+これでリモートリポジトリの作成は完了した。</p>
+<h1 id="%E3%81%BE%E3%81%A8%E3%82%81">まとめ</h1>
+<p>今回はリモートリポジトリはなにかということと、GitHubでの作り方を説明した。<br>
+リモートリポジトリはチームでプロジェクトを共有するためのリポジトリであり、ローカルリポジトリと適宜同期を取りながら作業を進める。<br>
+GitHubではアカウントを取得後、鍵を指定、リポジトリを作成した。鍵は一度作っておけばそのアカウントのリポジトリはどれでも使えるので以後新しくリポジトリを作成するときは不要である（パスワードをつけるなど変更を加えたい場合は再度設定する必要がある）。</p>
+<p>次回は作ったリモートリポジトリにデータをアップロードしたりと操作を加えていくことになる。</p>
+
+</body>
+</html>

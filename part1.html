@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>part1.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+	width: 800px;
+	margin: auto;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<p>目次</p>
+<!-- TOC -->
+<ul>
+<li><a href="#%E3%81%93%E3%81%AE%E8%A8%98%E4%BA%8B%E3%81%AE%E7%94%9F%E3%81%BE%E3%82%8C%E3%81%9F%E7%B5%8C%E7%B7%AF%E3%81%A8%E7%9B%AE%E7%9A%84">この記事の生まれた経緯と目的</a></li>
+<li><a href="#git%E3%81%A3%E3%81%A6%E4%BD%95">Gitって何？</a></li>
+<li><a href="#git%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">Gitのインストール</a></li>
+<li><a href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%8D%E3%81%A6%E3%82%8B%E3%81%8B%E7%A2%BA%E3%81%8B%E3%82%81%E3%82%8B">インストールできてるか確かめる</a></li>
+</ul>
+<!-- /TOC -->
+<h1 id="%E3%81%93%E3%81%AE%E8%A8%98%E4%BA%8B%E3%81%AE%E7%94%9F%E3%81%BE%E3%82%8C%E3%81%9F%E7%B5%8C%E7%B7%AF%E3%81%A8%E7%9B%AE%E7%9A%84">この記事の生まれた経緯と目的</h1>
+<p>Gitというものを知っているだろうか？正直に言います、ぼくはこの前まで名前知ってるくらいだった。<br>
+ちょっと友人とコード書いたりした時に簡単に同期できたりしたら楽だよなーって思ったのでGitについて調べてみたのが始まりで、自分の学習ついでにその過程を残して後学者の助けに少しでもなればなという。<br>
+つまりどういうことかっていうと某「サルでもわかる」とかQiitaの記事とか読んでも「？？？」ってなってしまった（カタカナ語がおおくて毎回意味を確認したりしてたら頭にはいってこなかった）、躓いたところを書いて残しておこうというアレ。更にいざやってみると英語ばっかりで「うっ」となる割に自力で解読する元気がない人の参考になればいいなと。<br>
+最終的にはこれを読んだ人なら一緒にGit使って開発をうまく連携していくことができるようになることを目指していく。チーム開発を捗らせたい。<br>
+サークルのほうでもチーム開発する人いるだろうし役に立てば嬉しい。</p>
+<h1 id="git%E3%81%A3%E3%81%A6%E4%BD%95%EF%BC%9F">Gitって何？</h1>
+<p>そもそもGit（ギット）ってなんなのか。Wikipediaをみると</p>
+<blockquote>
+<p>Git（ギット）は、プログラムのソースコードなどの変更履歴を記録・追跡するための分散型バージョン管理システムである。Linuxカーネルのソースコード管理に用いるためにリーナス・トーバルズによって開発され、それ以降ほかの多くのプロジェクトで採用されている。Linuxカーネルのような巨大プロジェクトにも対応できるように、動作速度に重点が置かれている。現在のメンテナンスは濱野純 (Junio C Hamano) が担当している。(Wikipediaより)</p>
+</blockquote>
+<p>「分散型バージョン管理システム」とは一体。　　<br>
+分散型とかいろいろついてるけど根本はバージョンを管理するシステムである。たとえば<br>
+<img src="image/part1/folderversion.png" alt="folderversion"><br>
+自分で作ったものをどんどん更新していくとき、途中までの状態を別のフォルダーなどに保存しておいたりすることがあるだろう。バージョンを上げるたびにフォルダを複製して複製したものを書き直したりして作業してという作業を繰り返すのは面倒だし、量が増えてくれば管理がしにくい。バージョンが一つ変化したところでどこのところが変更されたのか探すだけでも一苦労である。更にバージョン情報のみでなく誰が編集したかという情報をいれたりすれば「sample_v3_mattyan1053」とか「sample_v3_name」みたいな同じバージョンを他の人が編集したもののフォルダーなどができてしまいわけが分からなくなりかねない。そこで登場するのがGitだ。<br>
+<img src="image/part1/git.bmp" alt="git"><br>
+バージョンをツリー構造のように管理することができ（途中で分岐させたり、合流させたりできる）、常に作業する場所は同じでありながら、Gitを操作するだけで過去のバージョンに戻してそこから作業をやりなおしたりできる。また、フォルダーを複製するのと異なり変更点を保存するので、変更してない部分もすべて保存するような無駄もなく、どこが変わったのか、何を変更したのかだけを残しておくことができる。<br>
+<img src="image/part1/remake.bmp" alt="remake"><br>
+例えば上記のように、Version１からVersion2にするときに書き換えた時、「またVersion1に戻したいな」と思ったら通常一度Version2のwhileのところなどを消してVersion1と書き直さないといけないが、書き直すときにミスが発生するかもしれないし、たくさん書き換えてたら大変だ。もとのファイルを残してあればいいが、毎回別ファイルをつくるのはいただけない。ところがGitにVersion1を登録しておけば、そのファイルを複製することなくそのまま書き換えてVersion2にしても、すぐにVersion1の状態に変更分だけ戻すことが可能になるわけだ。
+こうしたファイルの変更点の管理は、一つのファイルに限ったことではなくGit管理している複数のファイルで行うことができる。多くのファイルの変更を一括管理することができるということになる。<br>
+Gitの便利さがおわかりただけただろうか？</p>
+<h1 id="git%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">Gitのインストール</h1>
+<p>さてすぐにGitを始めたいところだが、当然Gitを使うにはまずGitをインストールしなければならない。次のURLから自分のOSにあったものをインストールしよう。
+<a href="https://git-scm.com/downloads">「Git - Downloads」 https://git-scm.com/downloads</a>
+<img src="image/part1/gitDl.png" alt="GitDL"><br>
+ぼくの端末がWindowsなのでWindowsで説明。てかたぶんWindowsが一番面倒。Linuxだとコマンドでインストールかな。yumとかそういう（あまりよくしらない）。macは同じようにGUIインストーラあるらしい？<br>
+インストールするのはこれだけで構わない。下に「GUI Clients」とかいってGUI（マウスとかの操作）でGitを使えるようにするものもあるが、ここではCUI（キーボード入力での操作）でGitの操作をしていくつもりなので関係はない（お好みでインストールしてもかまわない）
+なぜグラフィカルな、わかりやすい操作方法のほうを利用しないのかというと、OS間で操作の違いが出てしまうことと、CUI（キーボード入力での操作）に慣れておいたほうがいいと思うので。実際慣れるとマウスでカチカチやるより早く作業が進む。最初は抵抗あるかもしれないが、手をしっかり動かすことで覚えていきたい。</p>
+<p>さて、Gitインストーラがダウンロードできたら実行しよう。<br>
+<img src="image/part1/ins1.png" alt="install"><br>
+残念ながら全部英語です。諦めましょう。Nextをクリック。<br>
+<img src="image/part1/ins2.png" alt="install"><br>
+何もしないでNext押してもいいけどショートカットをデスクトップに作りたい人は上２つにチェックを、アップデートを日頃確認させたい場合は一番したチェックいれる。そしたらNext。<br>
+<img src="image/part1/ins3.png" alt="install"><br>
+Gitで使うエディタを設定。ファイル変更して更新したときに「何を更新したのか」書いたりするのに使うエディタになる。好きなの使えばよろし。<br>
+<img src="image/part1/ins4.png" alt="install"><br>
+環境変数ってやつ。わからなかったら素直に真ん中。Windowsでlsコマンドとか使いたいやつは一番下。一番上でやるとコマンドプロンプトでやらせてもらえない。<br>
+<img src="image/part1/ins5.png" alt="install"><br>
+HTTPS接続にOpenSSLライブラリ使うので上。わからなくても問題ない。<br>
+<img src="image/part1/ins6.png" alt="install"><br>
+改行コードの話。LFでおねがいします。Unix Style。わからなくてもOK。<br>
+<img src="image/part1/ins7.png" alt="install"><br>
+標準コンソールつかうよ。下。Next。<br>
+<img src="image/part1/ins8.png" alt="install"><br>
+追加オプション。全チェックで良いと思う。<br>
+これでInstallでOK。Git使えるようになりました！おめでとう！！</p>
+<h1 id="%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%8D%E3%81%A6%E3%82%8B%E3%81%8B%E7%A2%BA%E3%81%8B%E3%82%81%E3%82%8B">インストールできてるか確かめる</h1>
+<p>スタートメニューからGit Bashって奴見つけて起動するか、普通にコマンドプロンプト（Macだとターミナル、Lunuxだと端末？）を起動する。そしたらコマンドで</p>
+<pre class="hljs"><code><div>$ git --version
+</div></code></pre>
+<p>と入力したらGitのバージョンが表示されればOK。<br>
+<img src="image/part1/cmd.png" alt="cmd"><br>
+こんな感じ。</p>
+<p>お疲れ様でした！次から自分のPC内での操作かなー</p>
+
+</body>
+</html>

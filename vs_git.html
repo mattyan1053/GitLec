@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>vs_git.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+	width: 800px;
+	margin: auto;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<p>目次</p>
+<!-- TOC -->
+<ul>
+<li><a href="#%E3%81%93%E3%81%AE%E8%A8%98%E4%BA%8B%E3%81%AE%E6%A6%82%E8%A6%81">この記事の概要</a></li>
+<li><a href="#%E6%9C%AC%E8%A8%98%E4%BA%8B%E3%81%AE%E5%AF%BE%E8%B1%A1">本記事の対象</a></li>
+<li><a href="#%E6%9C%AC%E8%A8%98%E4%BA%8B%E3%81%A7%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B%E7%92%B0%E5%A2%83">本記事で使用する環境</a></li>
+<li><a href="#%E5%89%8D%E6%BA%96%E5%82%99">前準備</a>
+<ul>
+<li><a href="#%E6%96%B0%E8%A6%8F%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90">新規プロジェクトの作成</a></li>
+<li><a href="#%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E6%BA%96%E5%82%99">リモートリポジトリの準備</a></li>
+<li><a href="#git%E8%A8%AD%E5%AE%9A">Git設定</a></li>
+</ul>
+</li>
+<li><a href="#%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AB%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B">プロジェクトにローカルリポジトリを設定する</a></li>
+<li><a href="#%E5%A4%89%E6%9B%B4%E3%82%92%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%99%E3%82%8B">変更をコミットする</a></li>
+<li><a href="#%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AE%E6%93%8D%E4%BD%9C">ブランチの操作</a>
+<ul>
+<li><a href="#%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AE%E6%96%B0%E8%A6%8F%E4%BD%9C%E6%88%90">ブランチの新規作成</a></li>
+<li><a href="#%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AE%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88">ブランチの切り替え</a></li>
+</ul>
+</li>
+<li><a href="#%E3%83%AD%E3%82%B0%E3%81%AE%E8%A1%A8%E7%A4%BA">ログの表示</a></li>
+<li><a href="#%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AE%E3%83%9E%E3%83%BC%E3%82%B8">ブランチのマージ</a>
+<ul>
+<li><a href="#%E3%83%9E%E3%83%BC%E3%82%B8%E3%81%AE%E7%AB%B6%E5%90%88%E3%82%92%E8%A7%A3%E6%B1%BA%E3%81%99%E3%82%8B">マージの競合を解決する</a></li>
+</ul>
+</li>
+<li><a href="#%E3%83%AA%E3%82%BB%E3%83%83%E3%83%88">リセット</a></li>
+<li><a href="#%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B">リモートリポジトリをリポジトリに設定する</a></li>
+<li><a href="#%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5">プッシュ</a></li>
+<li><a href="#%E3%83%97%E3%83%AB">プル</a></li>
+<li><a href="#%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3">クローン</a></li>
+<li><a href="#%E3%82%B3%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%AB%E3%81%A7git%E3%82%92%E6%89%B1%E3%81%86">コンソールでGitを扱う</a></li>
+<li><a href="#%E6%9C%80%E5%BE%8C%E3%81%AB">最後に</a></li>
+</ul>
+<!-- /TOC -->
+<h1 id="%E3%81%93%E3%81%AE%E8%A8%98%E4%BA%8B%E3%81%AE%E6%A6%82%E8%A6%81">この記事の概要</h1>
+<p>Gitの基本的な昨日をVisual Studio Community 2017を使って利用する方法を、コンソールで操作するGitと比較しつつ説明する。「コミット」「マージ」などの言葉はすでに多少は理解している前提で進むので注意。仕組み概要図は「Git入門」のほうに図で説明してあるのでそちらを参照してほしい。</p>
+<h1 id="%E6%9C%AC%E8%A8%98%E4%BA%8B%E3%81%AE%E5%AF%BE%E8%B1%A1">本記事の対象</h1>
+<p>本記事ではGitの機能をVisual Studioで使いたい方が対象だ。Gitの大まかな仕組みを理解していて、かつVisual Studioの使い方がだいたいはわかるくらいであれば読めると思う（というよりそれでわかる記事を目指している）。</p>
+<p>Gitの理解度については、コンソールで実際に操作できなくても、「コミット」や「マージ」、「ブランチの切り替え」など、言葉をきいて何するかわかっていれば問題ない。何かの操作についてそれぞれ対応するコンソール操作も比較のため掲載するが、わからなければ読み飛ばしてOK。</p>
+<h1 id="%E6%9C%AC%E8%A8%98%E4%BA%8B%E3%81%A7%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B%E7%92%B0%E5%A2%83">本記事で使用する環境</h1>
+<ol>
+<li>Windows10 Home</li>
+<li>Visual Studio Community 2017</li>
+<li>Git for Windows version 2.18.0.windows.1</li>
+<li><a href="http://github.com">Github</a></li>
+</ol>
+<p>OSについてはあまり問題ではない。Visual Studioがまともに動けばいいのではないだろうか。<br>
+今回使用するVisual Studio（以下VS）はCommunity 2017だ。学生とか個人開発者であれば無償で使うことができる。これ以前のVSでも機能がついてたりするようだけど筆者がVisual Studio Express 2013とこの2017しか使ったこと無いので割愛。まあ新しい方で許して。
+Gitはまあメジャーなやつ。CygwinのやつとmsysGitのどちらを使うかということだけれどVSなら後者一択。まあGit for Windowsで問題ない。<br>
+VSならリポジトリサービスはVisual Studio Onlineというのがあるのだけど、ここでは有名で利用者の多いGitHubを採用。まあみんながみんなVS使ってるとは限らないしね（当然VS以外からも利用できるけどVS以外からの利用がメジャーでない）。</p>
+<h1 id="%E5%89%8D%E6%BA%96%E5%82%99">前準備</h1>
+<p>実際にVSでのGit操作を説明するにあたり、今回Git管理したいプロジェクトと、GitHubにリモートリポジトリを作成しておく。</p>
+<h2 id="%E6%96%B0%E8%A6%8F%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90">新規プロジェクトの作成</h2>
+<p>普通に新規作成すればOK。途中、「新しいGitリポジトリの作成(G)」というのがあるけれど、今回はあとから作成する（途中まで作業を進めたプロジェクトでもあとからGit管理する方法もわかるため）。<br>
+<img src="image/VSGit/mkprj.png" alt="prj"><br>
+今回はC++で例を進めていく（自分の都合）。</p>
+<h2 id="%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E6%BA%96%E5%82%99">リモートリポジトリの準備</h2>
+<p>GitHubで新しくリポジトリを作成しておく。今回は「vs-git-test」という名前で作成した。<br>
+詳しいやり方はここでは説明を省く。詳しくはここへ</p>
+<p><a href="part5.html">リモートリポジトリをつくる</a></p>
+<h2 id="git%E8%A8%AD%E5%AE%9A">Git設定</h2>
+<p>VSを起動して、Gitの設定をしておく。具体的に言うとユーザー名とか。メニューバーの「表示」から「チームエクスプローラー」を開いて、「設定」から各情報を記入する。<br>
+<img src="image/VSGit/setting.png" alt="setting"><br>
+差分、マージツールはとりあえずVisual StudioでOK。もしほかのものを使いたい場合はGitの「.gitconfig」とかのほうから設定してみるとかしよう。</p>
+<p>これで前準備は完了。</p>
+<h1 id="%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AB%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B">プロジェクトにローカルリポジトリを設定する</h1>
+<p>まずはこのプロジェクトにローカルリポジトリを設定しなければならない。コンソール時は次のようにした。</p>
+<pre class="hljs"><code><div>$ git init
+</div></code></pre>
+<p>VSでプロジェクトにローカルリポジトリを設定するには、「ソリューション名のところを右クリック」→「ソリューションをソース管理に追加」とする。<br>
+<img src="image/VSGit/mkrpg.png" alt="mkrpg"><br>
+これでローカルなGitリポジトリが作成され、更に最新の状態がコミットされた状態になる。ソリューションエクスプローラーにはファイルなどに鍵マークのようなものがついていることが確認できるだろう。実際にVSの作業ディレクトリを見てみると<br>
+<img src="image/VSGit/mkrpg2.png" alt="mkrpg2"><br>
+と、「.git」フォルダが作成されており、更に「.gitignore」や「.gitattributes」までもが追加されている。「.gitignore」の中身を見てみると、「Debug」フォルダや一時ファイルなど管理しなくて良いものは既に記入された状態になっている。とてもありがたい。<br>
+更に、コミット履歴を見てみると（確認の仕方は後述）、<br>
+<img src="image/VSGit/mkrpg3.png" alt="mkrpg3"><br>
+と、既に二度コミットされており、最初は「.gitignore」、「.gitattributes」のコミットがされた後、プロジェクトがコミットされていることが確認できる。また、ブランチは当然「master」であることもわかる。</p>
+<blockquote>
+<p>余談であるが、当然コマンドプロンプトなどから<code>git log</code>や<code>git status</code>として確認することも可能。</p>
+</blockquote>
+<h1 id="%E5%A4%89%E6%9B%B4%E3%82%92%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%99%E3%82%8B">変更をコミットする</h1>
+<p>なにか変更を加えたとしよう。それが完了したらコミットをしてみる。<br>
+チームエクスプローラーから「変更」をクリックするとコミットメッセージ入力画面などが表示される。<br>
+<img src="image/VSGit/commit.png" alt="commit"><br>
+必要事項を入力し、「すべてをコミット」をクリックすると、すべての変更をコミットすることができる。コミットするブランチはコミットメッセージの上に表示されている。実質これ。</p>
+<pre class="hljs"><code><div>$ git add .
+$ git commit
+</div></code></pre>
+<blockquote>
+<p>ちなみに、一部だけをコミットしたい場合は、「すべてをコミット」の下部に表示されている「変更」のところにある変更されたファイルを右クリックして個別に「ステージ」することができ、ステージしたものだけをコミットすることも可能だ。逆に、「変更」の右部に表示されている「＋」をクリックすればすべての変更をステージするので、そのあと「ステージ済みのファイル」からコミットしたくないファイルを右クリックして「アンステージ」すればコミット内容から外すことができる。</p>
+</blockquote>
+<h1 id="%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AE%E6%93%8D%E4%BD%9C">ブランチの操作</h1>
+<h2 id="%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AE%E6%96%B0%E8%A6%8F%E4%BD%9C%E6%88%90">ブランチの新規作成</h2>
+<p>Gitの強みであるブランチの操作について説明する。まずはチームエクスプローラーから「ブランチ」をクリック。そのあと左上の「新しいブランチ」をクリックする。<br>
+<img src="image/VSGit/branch.png" alt="branch"><br>
+ここで新規に作成したいブランチ名を入力し、下のプルダウンメニューでは派生元のブランチを選択する（ここではまだmasterブランチしかないので変更することはない）。その下の「ブランチのチェックアウト」にチェックをいれておけば新規ブランチを作成したあとそちらのブランチに移行してくれる。<br>
+すると、次からチームエクスプローラーで「ブランチ」を開いたときは<br>
+<img src="image/VSGit/branch2.png" alt="branch2"><br>
+となっており、新しいブランチが反映されているはずだ。現在アクティブなブランチは、ソリューション名の横に表示されている。</p>
+<pre class="hljs"><code><div>$ git checkout -b &lt;newbranch&gt;
+</div></code></pre>
+<p>とやってることは同じ。</p>
+<h2 id="%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AE%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88">ブランチの切り替え</h2>
+<p>画像を貼るのも面倒なくらい簡単で、チームエクスプローラーから「ブランチ」を選択し、アクティブにしたいブランチ名のところをダブルクリックするだけである。</p>
+<pre class="hljs"><code><div>$ git checkout &lt;branchname&gt;
+</div></code></pre>
+<p>と同じ。</p>
+<p>あと実は現在のブランチは画面の右下に表示されていて、ここから変更できたりもする。<br>
+<img src="image/VSGit/right_bottom.png" alt="right_bottom"></p>
+<h1 id="%E3%83%AD%E3%82%B0%E3%81%AE%E8%A1%A8%E7%A4%BA">ログの表示</h1>
+<p>ログの表示をするにあたって次のように変更し、コミットした。</p>
+<ul>
+<li>masterブランチの「Source.cpp」</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Hello World!"</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Let's commit!"</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Now branch is master!"</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<ul>
+<li>developブランチの「Source.cpp」</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Hello World!"</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Let's commit!"</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Now branch is develop!"</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<p>察しのいい人ならわかってしまうかもしれないが、次のマージの説明で競合させるための下準備だったりする。<br>
+さて、まずはmasterブランチのログを表示してみる。チームエクスプローラーの「ブランチ」から「master」ブランチを選択して右クリックして、「履歴を表示」とすると、masterブランチの履歴のみが新しいウィンドウで表示される。<br>
+<img src="image/VSGit/log.png" alt="log"><br>
+同様に、他のブランチのログも表示することができる。</p>
+<pre class="hljs"><code><div>$ git <span class="hljs-built_in">log</span> --oneline --graph
+</div></code></pre>
+<p>に近い表示。</p>
+<h1 id="%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AE%E3%83%9E%E3%83%BC%E3%82%B8">ブランチのマージ</h1>
+<p>VSを用いてマージを行ってみる。先ほどのmasterブランチにdevelopブランチをマージしてみよう。<br>
+チームエクスプローラーから「ブランチ」をクリックして、「マージ」のところをクリックする。<br>
+<img src="image/VSGit/merge.png" alt="merge"><br>
+あとはマージ元とマージ先を選択しマージ。問題なくマージできればこれでマージは完了。ログを確認するとうまくいっているはずである。</p>
+<pre class="hljs"><code><div>$ git merge &lt;branch&gt;
+</div></code></pre>
+<p>と同じ。</p>
+<h2 id="%E3%83%9E%E3%83%BC%E3%82%B8%E3%81%AE%E7%AB%B6%E5%90%88%E3%82%92%E8%A7%A3%E6%B1%BA%E3%81%99%E3%82%8B">マージの競合を解決する</h2>
+<p>今回の例では競合が発生する。これの解決方法を説明する。<br>
+マージで競合が発生すると次のように表示される。<br>
+<img src="image/VSGit/conflict.png" alt="conflict"><br>
+「競合」と表示されているところをクリックすると、競合一覧が出てくるので、ひとつずつ解決していく。<br>
+競合しているファイルをクリックして「マージ」をクリックすると差分が表示されるので<br>
+<img src="image/VSGit/conflict2.png" alt="conflict2"><br>
+<img src="image/VSGit/conflict3.png" alt="conflict3"><br>
+各ファイルから残す部分、削除する部分を選択していく。完了したら左上の「マージを許可」をクリック。これを競合しているすべてのファイルに対して行っていく。それができたら<br>
+<img src="image/VSGit/conflict4.png" alt="conflict4"><br>
+チームエクスプローラの「マージをコミット」をクリックして、<br>
+<img src="image/VSGit/conflict5.png" alt="conflict5"><br>
+いつものコミットのようにメッセージを入力してコミット。これで競合を解決してマージが成功した。<br>
+実際に、ログを確認してみると<br>
+<img src="image/VSGit/mergelog.png" alt="mergelog"><br>
+うまくいっていることがわかる。</p>
+<blockquote>
+<p>リベースもほぼ同様の手順で可能である。</p>
+</blockquote>
+<h1 id="%E3%83%AA%E3%82%BB%E3%83%83%E3%83%88">リセット</h1>
+<p>リセットで指定のコミットに戻ることも可能である。方法は、コミットログを開いて戻りたいコミットで右クリック→「リセット」→「[option]」とするだけ。オプションは必要なものを選ぼう。<br>
+<img src="image/VSGit/reset.png" alt="reset"><br>
+裏では</p>
+<pre class="hljs"><code><div>$ git reset [option] &lt;commit&gt;
+</div></code></pre>
+<p>をやってるだけ。</p>
+<p><code>--mixed</code>と<code>--hard</code>の違いは次を参照</p>
+<p><a href="part4.html">ローカルリポジトリの操作３</a></p>
+<h1 id="%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%88%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B">リモートリポジトリをリポジトリに設定する</h1>
+<p>チームエクスプローラから「設定」→「リポジトリの設定」→リモートにある「追加」でリモートリポジトリの設定を入力する。リポジトリ名は「origin」として、フェッチ、プッシュのところはGitHubに指定されたものを入力。今回の例ではSSHを使っている。<br>
+<img src="image/VSGit/remote.png" alt="remote"></p>
+<p>グローバルなユーザー名を使用するかは任意。チェックを入れれば最初のほうで設定したものを利用することになる。リポジトリごとに個別に設定したい場合はここで。</p>
+<pre class="hljs"><code><div>$ git remote add &lt;remotename&gt; &lt;adress&gt;
+</div></code></pre>
+<p>と同じ。ユーザー名とかは<code>git config</code>の設定に<code>--global</code>をつけてるかどうかって感じ。</p>
+<h1 id="%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5">プッシュ</h1>
+<p>さてローカルで行った変更をプッシュしてみよう。チームエクスプローラーから「同期」を選択する。すると現在のブランチ名とプッシュ、フェッチなどが表示されるので「プッシュ」をクリック。するとリモートリポジトリに現在のブランチの内容がプッシュされる。<br>
+<img src="image/VSGit/push.png" alt="push"><br>
+他のブランチをプッシュしたいときは「ブランチ」でアクティブブランチを変更してからプッシュしよう。<br>
+当然GitHubにいけば内容が確認できる。<br>
+<img src="image/VSGit/github.png" alt="github"></p>
+<p>コンソールで言う</p>
+<pre class="hljs"><code><div>$ git push origin &lt;branch&gt;
+</div></code></pre>
+<h1 id="%E3%83%97%E3%83%AB">プル</h1>
+<p>もうお気づきだと思うがほとんどプッシュと同じでプッシュのかわりにプルをクリックするだけである。すると現在のブランチに当たる部分がプルされてくる。<br>
+<img src="image/VSGit/pull.png" alt="pull"><br>
+今回の例では何もせずそのままプルしたので最新ですって言われる。<br>
+コンソールで言う</p>
+<pre class="hljs"><code><div>$ git pull origin &lt;branch&gt;
+</div></code></pre>
+<p>にあたる。</p>
+<blockquote>
+<p><strong>フェッチ</strong>について<br>
+フェッチの詳しい説明は割愛するが、もしかしたら使いたい時もあるかもしれない。この場合はフェッチをクリックしたあと、ブランチからフェッチしてきたコミットをマージすることでプルができる。<br>
+<img src="image/VSGit/fetch.png" alt="fetch"></p>
+</blockquote>
+<h1 id="%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3">クローン</h1>
+<p>当然リモートリポジトリからリポジトリをクローンしてきて使いたいときもある。
+そのときは、上の方のコンセントのようなマーク（接続）から、ローカルリポジトリの「複製」のところをクリックし、クローンしたいリポジトリのURLを入力すればOK。<br>
+<img src="image/VSGit/clone.png" alt="clone"><br>
+URLはGitHubの場合、リポジトリのページの「Clone or Download」のところから取得できる。</p>
+<pre class="hljs"><code><div>$ git <span class="hljs-built_in">clone</span> &lt;url&gt; &lt;filename&gt;
+</div></code></pre>
+<p>と同じ。</p>
+<h1 id="%E3%82%B3%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%AB%E3%81%A7git%E3%82%92%E6%89%B1%E3%81%86">コンソールでGitを扱う</h1>
+<p>これまでの操作は、あくまでGitの操作がGUI化してただけで当然コンソールからも行うことができる。このとき、操作したあとVSに戻ると<br>
+<img src="image/VSGit/console.png" alt="console"><br>
+と言われるかもしれないがおとなしくすべて適用すればOK。</p>
+<h1 id="%E6%9C%80%E5%BE%8C%E3%81%AB">最後に</h1>
+<p>以上、Visual StudioにおけるGitの使い方である。サークルのほうでC講座をやるときVisual Studio使ってるので需要あるかなとおもって書いてみた。<br>
+そんなに複雑な操作はないと思う。細かい原理理解してなくても必要な機能使えるしね。</p>
+
+</body>
+</html>

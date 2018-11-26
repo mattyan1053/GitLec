@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>part4.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+	width: 800px;
+	margin: auto;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<p>目次</p>
+<!-- TOC -->
+<ul>
+<li><a href="#head%E3%81%A8%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81">HEADとブランチ</a>
+<ul>
+<li><a href="#%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%AE%E6%AD%A3%E4%BD%93">コミットの正体</a></li>
+<li><a href="#%E7%8F%BE%E5%9C%A8%E3%81%AE%E7%8A%B6%E6%85%8B%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">現在の状態について</a></li>
+<li><a href="#%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AE%E6%AD%A3%E4%BD%93">ブランチの正体</a></li>
+<li><a href="#head%E3%81%AE%E6%AD%A3%E4%BD%93">HEADの正体</a></li>
+<li><a href="#c%E8%A8%80%E8%AA%9E%E3%81%AA%E3%81%A9%E3%81%AE%E3%83%9D%E3%82%A4%E3%83%B3%E3%82%BF%E3%81%8C%E3%82%8F%E3%81%8B%E3%82%8B%E4%BA%BA%E3%81%B8">C言語などの「ポインタ」がわかる人へ</a></li>
+</ul>
+</li>
+<li><a href="#git%E3%81%AE%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E8%87%AA%E5%9C%A8%E3%81%AB%E6%93%8D%E3%82%8B">Gitのリポジトリを自在に操る</a>
+<ul>
+<li><a href="#revert">revert</a></li>
+<li><a href="#git-reset">git reset</a>
+<ul>
+<li><a href="#--mixed%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3">[--mixed]オプション</a></li>
+<li><a href="#--soft%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3">[--soft]オプション</a></li>
+<li><a href="#--hard%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3">[--hard]オプション</a></li>
+<li><a href="#%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AE%E7%A7%BB%E5%8B%95">ブランチの移動</a></li>
+</ul>
+</li>
+<li><a href="#git-commit">git commit</a></li>
+<li><a href="#%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81">使わなくなったブランチ</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%9F%E9%9A%9B%E3%81%AE%E9%96%8B%E7%99%BA%E3%81%A8%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AE%E4%BD%BF%E3%81%84%E5%88%86%E3%81%91">実際の開発とブランチの使い分け</a></li>
+<li><a href="#%E3%81%BE%E3%81%A8%E3%82%81">まとめ</a></li>
+</ul>
+<!-- /TOC -->
+<p>Gitの操作もだいぶ学んできた。このへんで頭の中を一旦整理しつつ、細かい話をしていきたい。</p>
+<h1 id="head%E3%81%A8%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81">HEADとブランチ</h1>
+<p>前回、HEADとブランチと呼ばれているものを移動させてワークツリー（作業ディレクトリ）の内容をコントロールしてきた。<br>
+復習がてら確認しておくと、ブランチを切り替えればそのブランチが指し示すコミット（記憶のかたまり）の状態に変更してくれる、というものだった。HEADを前の状態に戻していけば、その前の状態がワークツリー（作業ディレクトリ）に復元された。<br>
+今までコミットをどちらも指し示している曖昧な状態で進めてきたが、これらは一体どういうものなんだろうか。</p>
+<h2 id="%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%AE%E6%AD%A3%E4%BD%93">コミットの正体</h2>
+<p>これまで作成してきた「コミット（記憶のかたまり）」に含まれる情報は次のようなものである。</p>
+<ul>
+<li>ワークツリーの状態</li>
+<li>コミットを作成したユーザーの情報（ユーザー名、E-mailアドレス）</li>
+<li>コミットメッセージ</li>
+<li><strong>親コミットの名前</strong></li>
+</ul>
+<p>図で表すとこう<br>
+<img src="image/part4/commit.bmp" alt="commit"><br>
+コミットには自分の一つ手前のコミット（親コミット）の名前が記録されている。つまり、今いるコミットから親コミットへ順番にたどっていけば最初のコミットまでたどり着けるというわけだ。逆に、自分の後ろのコミットについての情報は全く含まれていない。したがって、親コミットから子コミットのほうは認識できないということである。<br>
+今まで</p>
+<pre class="hljs"><code><div>$ git <span class="hljs-built_in">log</span>
+</div></code></pre>
+<p>としたとき、今いるコミットより下のコミットの情報は表示されなかったはずだ。<br>
+たとえば<br>
+<img src="image/part3/commit.bmp" alt="commit"><br>
+この状態でみると</p>
+<pre class="hljs"><code><div>$ git <span class="hljs-built_in">log</span> --oneline
+0d5bf59 Third commit
+393f3a1 Second commit
+f0c1e0e first commit
+</div></code></pre>
+<p>と表示されたが、一つもどってログを見ると</p>
+<pre class="hljs"><code><div>$ git reset --hard HEAD~
+$ git <span class="hljs-built_in">log</span> --oneline
+393f3a1 Second commit
+f0c1e0e first commit
+</div></code></pre>
+<p><img src="image/part3/reset.bmp" alt="reset"></p>
+<p>となり、Third commitは表示してくれない。この原因はコミットに含まれる情報にあったわけだ。</p>
+<h2 id="%E7%8F%BE%E5%9C%A8%E3%81%AE%E7%8A%B6%E6%85%8B%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">現在の状態について</h2>
+<p>Gitにおける現在の状態について整理しよう。<br>
+現在の状態は、</p>
+<ul>
+<li>現在のコミット</li>
+<li>現在のインデックス</li>
+<li>現在のワークツリー</li>
+</ul>
+<p>の３つに分けることができる。<br>
+「現在のコミット」は問題ないだろう。通常、最後にコミットしたものを指し示し、<code>git reset</code>などを使って移動した場合はその移動先のコミットを表す。<br>
+「現在のインデックス」はステージ（インデックス（変更したものリスト）に追加）されたもののことだ。<code>git add</code>で追加したりできる。<br>
+「現在のワークツリー」とは作業ディレクトリの状態である。普段ファイルを開いたり編集したりできるあれ。コミットしたあとにまた変更してたりしてなかったり。  コミットの中身は変更されることは基本ないがこちらは随時変更されていくだろう。
+図で表してみるとこんな感じ。<br>
+<img src="image/part4/state.bmp" alt="state"><br>
+これを把握した上で次からを読み進めてもらいたい。</p>
+<h2 id="%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AE%E6%AD%A3%E4%BD%93">ブランチの正体</h2>
+<p>前回、ブランチについて説明した。ブランチは枝のことだと説明してきたが、実はあまり正しくない。<br>
+ブランチとは、コミットを指し示すものである。次の図を見てみよう。<br>
+<img src="image/part4/branch.bmp" alt="branch"><br>
+この図では「master」がコミット「0d5bf59」を、「test-branch」がコミット「84507d3」を指し示している。<br>
+通常、ブランチは枝一つにつきブランチを一つ用意する。そしてそのブランチが枝の先端を指し示すように動かすものなのだ。<br>
+逆に言えば「master」や「test-branch」を別の枝を指し示すように移動することもできるということだが、無意味なのでやらない。</p>
+<h2 id="head%E3%81%AE%E6%AD%A3%E4%BD%93">HEADの正体</h2>
+<p>最後にHEADの正体について考える。ブランチの流れから察している人もいるかもしれないが、HEADもなにかを指し示すものだ。HEADは指し示すものが複数存在し、同時に指し示している。指し示しているのは次の3つだ。</p>
+<ul>
+<li>現在のブランチ</li>
+<li>コミット直後のインデックス</li>
+<li>コミット直後のワークツリー</li>
+</ul>
+<p>「現在のブランチ」を指し示すとはどういうことか。現在「master」ブランチにいればHEADは「master」を指し示し、現在「test-branch」にいればHEADは「test-branch」を指し示す。これを「HEAD-&gt;master」などと表していて、<code>git log</code>などで見たことがあるのではないだろうか。図で表すと、<br>
+<img src="image/part4/head.bmp" alt="head"><br>
+この状態ではHEADは「master」を指し示しているが、</p>
+<pre class="hljs"><code><div>$ git checkout <span class="hljs-built_in">test</span>-branch
+</div></code></pre>
+<p>とするとヘッドの指し示すブランチは「test-branch」に変わり<br>
+<img src="image/part4/head2.bmp" alt="head2"><br>
+となる。<br>
+ブランチを指し示していれば実質コミットも指し示すことができているということになる。</p>
+<p>「コミット直後のインデックス」はそのままの意味であり、ステージされているものすべてを表す。<br>
+「コミット直後のワークツリー」も同様そのままの意味を示し、最後のコミットから変更されている部分も含むことになる。</p>
+<h2 id="c%E8%A8%80%E8%AA%9E%E3%81%AA%E3%81%A9%E3%81%AE%E3%80%8C%E3%83%9D%E3%82%A4%E3%83%B3%E3%82%BF%E3%80%8D%E3%81%8C%E3%82%8F%E3%81%8B%E3%82%8B%E4%BA%BA%E3%81%B8">C言語などの「ポインタ」がわかる人へ</h2>
+<p>C言語などの「ポインタ」がなにか知らない人は飛ばして次へ <a href = "#Gitのリポジトリを自在に操る">Gitのリポジトリを自在に操る</a><br>
+実は、これらの「指し示す」という考えはC言語の「ポインタ」の概念と照らし合わせるとよく理解できる。HEADはブランチ、空のインデックス、元のワークツリーへのポインタをメンバにもつ構造体のように捉えるとわかりやすいかもしれない。「HEAD-&gt;master」のような表現にアロー演算子やん！って反応した人はある意味正しい。ブランチはコミットへのポインタであり、コミットは親コミットへのポインタ、ワークツリーへのポインタなどを保持していることになる。つまるところ<strong>ポインタのオンパレード</strong>。</p>
+<h1 id="git%E3%81%AE%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92%E8%87%AA%E5%9C%A8%E3%81%AB%E6%93%8D%E3%82%8B">Gitのリポジトリを自在に操る</h1>
+<p>ここまでの説明をしたことで、リポジトリをうまく操るために準備が整った。今までの知識をフル活用して読んでいきたい。</p>
+<h2 id="revert">revert</h2>
+<p>はじめてみるコマンドかもしれないが、便利なので掲載。<br>
+最終コミットの内容を取り消したコミットを作成するのに使う。<br>
+一度コミットしたものを取り消すのだが、その取り消したこともログに残したいことがあるだろう。そういうときのコマンドである。<br>
+具体的には直近のコミットを取り消したコミットを作り出すことになる（一つ前のコミットができあがる）。<br>
+<img src="image/part4/revert.bmp" alt="revert"></p>
+<pre class="hljs"><code><div>$ git revert HEAD
+</div></code></pre>
+<h2 id="git-reset">git reset</h2>
+<p>さて、ここまできて今まで幾度とみてきた<code>git reset</code>について考える。とても重要なコマンドなので詳しくしっておきたい。<br>
+<code>git reset</code>の使い方は</p>
+<pre class="hljs"><code><div>$ git reset [オプション] &lt;コミットを指すもの&gt;
+</div></code></pre>
+<p>という形だ。「コミットを指すもの」としては「HEAD」、「ブランチ」、「コミットの名前（ハッシュ値）」とその相対位置（HEADの一つ前、ブランチの一つ前など）を指定できる。一つ前を指し示すときは「~」をつけるなどする。例えばHEADが指し示すコミットの一つ前のコミットを指定したいときは</p>
+<pre class="hljs"><code><div>$ git reset HEAD~
+</div></code></pre>
+<p>というようにすれば良い。<br>
+オプションはとりあえず<code>--hard</code> <code>--soft</code> <code>--mixed(つけなくても良い、デフォルト)</code>の3つを把握しておけばよい。</p>
+<h3 id="mixed%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3">[--mixed]オプション</h3>
+<p>まず<code>--mixed</code>について説明する。これはデフォルトなので、オプションを何もつけないで<code>git reset</code>した場合は自動的に<code>--mixed</code>オプションをつけたときと同じ扱いになる。<br>
+このオプションをつけると、現在のインデックス、及びコミットが現在の状態から指定したコミットの作成直後までリセットされる。ワークツリーはリセットされないので、変更したファイルはそのまま残っている。どういうことか、図で表してみると次のようになる。<br>
+<img src="image/part4/mixed.bmp" alt="mixed"><br>
+コミットとインデックスはHEADの状態に書き換えられているが、ワークツリーは現在の状態のままなことがわかる。</p>
+<p>次の例を見てみよう。</p>
+<p>【その２】で説明したように、</p>
+<pre class="hljs"><code><div>$ git add &lt;filename&gt;
+</div></code></pre>
+<p>で現在のインデックス（変更したものリスト）に変更したファイルを追加できた。<br>
+ここで、変更したけどまだコミットしたくないものを間違って「add」してしまったときのコマンドとして</p>
+<pre class="hljs"><code><div>$ git reset HEAD &lt;filename&gt;
+</div></code></pre>
+<p>を紹介したとおもう。これはどういうことかというと「&lt;filename&gt;で指定したファイルを、HEADの指し示す状態にリセットする」ということだ。コミット直後は当然インデックスは空であるから、指定したファイルをコミット直後の状態に戻すとまだステージされる前の状態に戻る。けれどもワークツリーは何も変化しないので、書き換えた部分は取り消されることはない。したがって、結果的には「add」を取り消すことができるようになる。同様にして、すべてのインデックスを取り消す場合は</p>
+<pre class="hljs"><code><div>$ git reset HEAD
+</div></code></pre>
+<p>とすればいいことがわかる。</p>
+<h3 id="soft%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3">[--soft]オプション</h3>
+<p>次に<code>--soft</code>についてだ。このオプションでは、コミットのみ後ろに書いたコミットの状態にリセットする。インデックスやワークツリーは書き換えられない。つまりコミットだけリセットされるということだ。<br>
+図で表してみよう。<br>
+<img src="image/part4/soft.bmp" alt="soft"><br>
+コミットの部分だけHEAD~の状態にリセットされ、ほかはそのままなことがわかる。図の状態をコマンドで打つなら</p>
+<pre class="hljs"><code><div>$ git reset --soft HEAD~
+</div></code></pre>
+<p>となる。これはファイルの変更を維持したまま直前のコミットを取り消す動作を意味する（コミット１は消えてしまうが、sample.cの変化は生きていて、ステージされたまま）。<br>
+この操作に関しては、実は後述する</p>
+<pre class="hljs"><code><div>$ git add sample.c
+$ git commit --amend
+</div></code></pre>
+<p>のほうが便利だったりする。</p>
+<h3 id="hard%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3">[--hard]オプション</h3>
+<p>今までかなり多用してきたように見える<code>[--hard]</code>オプションについてだ。<code>--hard</code>オプションでは後ろに書いたコミットの状態にリセットし、なおかつインデックス、ワークツリーも元の状態にリセットする。図で表すと<br>
+<img src="image/part4/hard.bmp" alt="hard"><br>
+この場合、一つ前のコミットの状態を完全に上書きしていることになる。これまで、一つ前のコミットに戻る時や指定のコミットに戻る時</p>
+<pre class="hljs"><code><div>$ git reset --hard HEAD~
+</div></code></pre>
+<p>や</p>
+<pre class="hljs"><code><div>$ git reset --hard 0d5bf59
+</div></code></pre>
+<p>などとしてきたのは、現在の状態を指定の状態に上書きしたということになる。結果的には指定のコミットに移動したのと同じになるが、コミットしていないワークツリーの内容やインデックスの内容は完全に消えてしまうので注意が必要である（コミットは残るがハッシュ値を直接入力しないと戻れない）。<br>
+もっとも、現在のコミットを別のブランチにマージして、そのあと一つ前のコミットに戻って作業を進めた後再度マージすると競合が発生することになりかねないので、「コミットの内容を取り消す」のならば<code>git reset [--hard] HEAD~</code>をするよりも前述した<code>git revert</code>を利用することで「コミットの内容を取り消した履歴」を残しておくほうがベターであろう。</p>
+<pre class="hljs"><code><div>$ git reset --hard HEAD~
+</div></code></pre>
+<p>の場合<br>
+<img src="image/part4/hard-revert.bmp" alt="hard-revert"></p>
+<pre class="hljs"><code><div>$ git revert HEAD
+</div></code></pre>
+<p>の場合<br>
+<img src="image/part4/hard-revert1.bmp" alt="hard-revert"><br>
+競合を回避するためには変化の過程が一意的でなければならない。</p>
+<h3 id="%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AE%E7%A7%BB%E5%8B%95">ブランチの移動</h3>
+<p>さて、ここまでやってきたところで注意したいところなのだが、<code>git reset [option] HEAD~</code>などとHEADの位置をリセットしてきた。このとき、HEADの位置変更と同時にブランチの位置も変わっていることに注意したい。例えば現在「master」ブランチをHEADが指しているのなら</p>
+<pre class="hljs"><code><div>$ git reset --hard HEAD~
+</div></code></pre>
+<p>としたときはHEADのみでなく「master」も一つ手前のコミットを指すように変化していることになる。また、</p>
+<pre class="hljs"><code><div>$ git reset --hard master~
+</div></code></pre>
+<p>などと指定することもでき、この場合は「master」ブランチの一つ手前にHEADとHEADの指し示すブランチが移動することになる。つまり、現在「master」ブランチにいるときに強引に</p>
+<pre class="hljs"><code><div>$ git reset --hard <span class="hljs-built_in">test</span>-branch~
+</div></code></pre>
+<p>とすれば、HEADと「master」は「test-branch」が指し示しているコミットの一つ手前に移動することになる。<br>
+[f<img class="emoji" alt="id" src="data:image/png;base64,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" />mattyan1053:20180722152014j:plain]<br>
+まあこんなこと決してやってはいけないのだが･･････。</p>
+<h2 id="git-commit">git commit</h2>
+<p>今までさんざん行ってきた<code>git commit</code>だが、コミットを修正したいことがある。図で表すと<br>
+<img src="image/part4/ammend.bmp" alt="ammend"><br>
+こんな感じ。「sample.c」をコミットしたあと再度変更したが、その変更も前のコミットにいれてしまいたくなったときの方法。やり方は単純で、変更したものをインデックスに追加したあと、もう一度コミットするのだが、オプションで<code>[--amend]</code>をつけることである。こうすることで変更したものリストの内容を新規のコミットではなく直前のコミットの内容に上書きしてくれる。</p>
+<pre class="hljs"><code><div>$ git add sample.c
+$ git commit --amend
+</div></code></pre>
+<h2 id="%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81">使わなくなったブランチ</h2>
+<p>分岐して使っていたブランチをマージし、そのブランチが不要になったときはブランチを破棄することができる。</p>
+<pre class="hljs"><code><div>$ git branch -d &lt;ブランチの名前&gt;
+</div></code></pre>
+<h1 id="%E5%AE%9F%E9%9A%9B%E3%81%AE%E9%96%8B%E7%99%BA%E3%81%A8%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E3%81%AE%E4%BD%BF%E3%81%84%E5%88%86%E3%81%91">実際の開発とブランチの使い分け</h1>
+<p>これで自分の操作しているリポジトリはほぼ自由に操ることができるようになった。では実際の開発ではどのようにするのがいいのだろうか。<br>
+<img src="image/part4/develop.bmp" alt="develop"><br>
+基本的にはmasterで作業をせずに、別のブランチ（develop）で作業をして、良いところでmasterとマージさせていく。途中の機能追加などはdevelopから更に別のブランチに分岐して作業をしてdevelopにマージしていく、という流れが開発としてはやりやすいだろう。こういったルールはチームで決めていきたい。<br>
+上記のものは「A successful Git branching model」というのを参考にした。ググれば日本語になっているやつも出てくると思う。</p>
+<h1 id="%E3%81%BE%E3%81%A8%E3%82%81">まとめ</h1>
+<p>コミットやHEAD、ブランチの正体について学習し、それを踏まえていくつかコマンド（特に<code>git reset</code>）について説明した。<code>git reset</code>は結局</p>
+<pre class="hljs"><code><div>$ git reset [オプション（どこをリセットするか）] &lt;リセット元のデータはどこにあるか&gt;
+</div></code></pre>
+<p>というふうにまとめられる。他のコマンドも同様、現在のHEADがどうなっているかに注視していれば良い。</p>
+<p>次回からリモートリポジトリについて進めていく。</p>
+
+</body>
+</html>
